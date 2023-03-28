@@ -9,13 +9,13 @@ const Beranda = () => {
         <div className='mr-[200px] ml-[200px] mt-[60px]'>
           <div class="grid grid-cols-3 justify-items-center">
             <a href="/cekdata/unggahfile">
-              <div className='border-2 rounded-[15px] drop-shadow-md bg-[#FBFCFF] h-[250px] w-[300px] flex justify-center pt-5'>Unggah CSV/XLS</div>
+              <div className='border-2 rounded-[15px] drop-shadow-md bg-[#FBFCFF] h-[250px] w-[300px] flex justify-center pt-5 hover:bg-lightblue hover:border-b-blue hover:border-4 hover:text-blue items-center'>Unggah CSV/XLS</div>
             </a>
             <a href="/cekdata/isiform">
-              <div className='border-2 rounded-[15px] drop-shadow-md bg-[#FBFCFF] h-[250px] w-[300px] flex justify-center pt-5'>Isi Formulir</div>
+              <div className='border-2 rounded-[15px] drop-shadow-md bg-[#FBFCFF] h-[250px] w-[300px] flex justify-center pt-5  hover:bg-lightblue hover:border-b-blue hover:border-4 hover:text-blue  items-center'>Isi Formulir</div>
             </a>
             <a href="/cekdata/kirimapi">
-              <div className='border-2 rounded-[15px] drop-shadow-md bg-[#FBFCFF] h-[250px] w-[300px] flex justify-center pt-5'>Kirim API</div>
+              <div className='border-2 rounded-[15px] drop-shadow-md bg-[#FBFCFF] h-[250px] w-[300px] flex justify-center pt-5  hover:bg-lightblue hover:border-b-blue hover:border-4 hover:text-blue items-center'>Kirim API</div>
             </a>
           </div>
         </div>

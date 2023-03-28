@@ -20,10 +20,10 @@ function Navbar({ children }) {
 
     return (
         <div className="flex">
-            <nav className="fixed top-0 left-0 w-full h-[200px] bg-gradient-to-r from-[#E7EAEF] to-[#B5CBFC]">
+            <nav className="fixed top-0 left-0 w-full h-[160px] bg-gradient-to-r from-[#E7EAEF] to-[#B5CBFC]">
                 <div className="flex flex-row items-center justify-between">
                     <div className="items-start ml-[90px] mt-[20px] justify-start">
-                        <img src={logo} alt="" className="w-[620px] h-[100px]" />
+                        <img src={logo} alt="" className="w-[520px] h-[80px]" />
                     </div>
                     <div className="mr-[100px]">
                         <a
@@ -74,7 +74,7 @@ function Navbar({ children }) {
 
                     </div>
                 </div>
-                <div className="mt-[30px] ml-[150px] flex items-center text-black font-[500] text-sm font-raleway">
+                <div className="mt-[20px] ml-[150px] flex items-center text-black font-[500] text-sm font-raleway">
                     <ul className="flex flex-row">
                         <li>
                             <a href="/" className="items-center mr-[60px] uppercase">
@@ -152,7 +152,7 @@ function Navbar({ children }) {
                 
             </nav>
             
-            <main className="bg-primarywhite w-screen p-4 sm:mt-[200px]">
+            <main className="bg-primarywhite w-screen p-4 sm:mt-[160px]">
                 {children}
             </main>
         </div>

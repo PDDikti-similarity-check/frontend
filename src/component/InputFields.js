@@ -3,7 +3,7 @@ import React from 'react';
 
 
 const TextInput = ({
-    label = "Insert label",
+    label = "",
     variant = "",
     placeholder,
     className,
@@ -14,14 +14,14 @@ const TextInput = ({
     children}) => {
         return( 
         <div>
-            <label className="font-PlusJakartaSans text-[12px] font-bold">
+            <label className="font-raleway text-[14px] font-bold">
                 {label}
             </label>
             <input 
                 type={type}
                 variant={variant}
                 placeholder={placeholder}
-                className={`${className} ${variant} rounded-[4px] font-PlusJakartaSans text-[12px] border-gray-300 appearance-none w-full mb-3 py-3.5 px-3 leading-tight focus:outline-none focus:shadow-outline`} 
+                className={`${className} ${variant} rounded-[15px] font-raleway text-[12px] border-gray-300 appearance-none mb-3 py-3.5 px-3 leading-tight focus:outline-none focus:shadow-outline`} 
                 value={value}
                 onChange={onChange}
                 id={id}
@@ -43,11 +43,11 @@ const ReqTextInput = ({
     children}) => {
         return( 
         <div>
-            <label className="font-PlusJakartaSans text-[12px] font-bold">
+            <label className="font-raleway text-[14px] font-bold">
                 
                 <div className='flex items-center'>
                     {label}
-                    <p className="font-PlusJakartaSans text-[12px] font-bold text-[#D0021B]">
+                    <p className="font-raleway text-[14px] font-bold text-[#D0021B]">
                         *
                     </p>
                 </div>
@@ -56,7 +56,7 @@ const ReqTextInput = ({
                 type={type}
                 variant={variant}
                 placeholder={placeholder}
-                className={`${className} ${variant} rounded-[4px] font-PlusJakartaSans text-[12px] border-gray-300 appearance-none w-full mb-3 py-3.5 px-3 leading-tight focus:outline-none focus:shadow-outline`} 
+                className={`${className} ${variant} rounded-[15px] font-raleway text-[14px] border-gray-300 appearance-none mb-3 py-3.5 px-3 leading-tight focus:outline-none focus:shadow-outline`} 
                 value={value}
                 onChange={onChange}
                 id={id}
@@ -77,13 +77,13 @@ const DisTextInput = ({
     children}) => {
         return( 
         <div>
-            <label className="font-PlusJakartaSans text-[12px] font-bold">
+            <label className="font-raleway text-[14px] font-bold">
                 {label}
             </label>
             <input 
                 type={type}
                 variant={variant}
-                className={`${className} ${variant} rounded-[4px] font-PlusJakartaSans text-[12px] border-gray-300 appearance-none w-full mb-3 py-3.5 px-3 leading-tight focus:outline-none focus:shadow-outline`} 
+                className={`${className} ${variant} rounded-[4px] font-raleway text-[14px] border-gray-300 appearance-none w-full mb-3 py-3.5 px-3 leading-tight focus:outline-none focus:shadow-outline`} 
                 value={value}
                 id={id}
                 disabled
@@ -105,14 +105,14 @@ const DisabledTextInput = ({
     children}) => {
         return( 
         <div>
-            <label className="font-PlusJakartaSans text-[12px]">
+            <label className="font-raleway text-[14px]">
                 {label}
             </label>
             <input 
                 type={type}
                 variant={variant}
                 placeholder={placeholder}
-                className={`${className} ${variant} rounded-[4px] font-PlusJakartaSans text-[12px] border-gray-300 appearance-none w-full mb-3 py-3.5 px-3 leading-tight focus:outline-none focus:shadow-outline`} 
+                className={`${className} ${variant} rounded-[4px] font-raleway text-[14px] border-gray-300 appearance-none w-full mb-3 py-3.5 px-3 leading-tight focus:outline-none focus:shadow-outline`} 
                 value={value}
                 onChange={onChange}
                 id={id}
