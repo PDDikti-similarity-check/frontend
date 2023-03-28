@@ -33,7 +33,7 @@ function Navbar({ children }) {
                                 size={20}
                                 color="#2F3780"
                             />
-                            <span className="ml-[10px] text-[18px] mr-[10px] text-[#2F3780]">
+                            <span className="ml-[10px] text-[18px] font-[500] mr-[10px] text-[#2F3780]">
                                 Admin
                             </span>
                             <span>
@@ -52,7 +52,7 @@ function Navbar({ children }) {
                         <div
                             className={
                                 navbarProfile
-                                    ? "overflow-hidden absolute z-40 bg-[#FFFFFF] drop-shadow-md transition-all duration-700 max-h-40 space-y-4 mt-2 rounded-[10px]  text-black font-bold text-sm font-raleway"
+                                    ? "overflow-hidden absolute z-40 bg-[#FFFFFF] drop-shadow-md transition-all duration-700 max-h-40 mt-2 rounded-[10px]  text-black font-[500] text-sm font-raleway"
                                     : "hidden transition-all duration-300 max-h-0 space-y-4"
                             }
                         >
@@ -74,7 +74,7 @@ function Navbar({ children }) {
 
                     </div>
                 </div>
-                <div className="mt-[30px] ml-[150px] flex items-center text-black font-bold text-sm font-raleway">
+                <div className="mt-[30px] ml-[150px] flex items-center text-black font-[500] text-sm font-raleway">
                     <ul className="flex flex-row">
                         <li>
                             <a href="/" className="items-center mr-[60px] uppercase">
@@ -106,8 +106,8 @@ function Navbar({ children }) {
                             <div
                                 className={
                                     navbarCekdata
-                                        ? "overflow-hidden bg-[#FFFFFF] drop-shadow-md transition-all duration-700 max-h-40 space-y-4 mt-2 rounded-[10px] "
-                                        : "overflow-hidden transition-all duration-300 max-h-0 space-y-4"
+                                        ? "overflow-hidden bg-[#FFFFFF] drop-shadow-md transition-all duration-700 max-h-40 mt-2 rounded-[10px] "
+                                        : "hidden transition-all duration-300 max-h-0 space-y-4"
                                 }
                             >
                                 <li className="pt-4 pb-2 pr-2 pl-4 hover:bg-lightblue hover:text-blue">
@@ -152,7 +152,7 @@ function Navbar({ children }) {
                 
             </nav>
             
-            <main className="bg-primarywhite w-screen p-4 sm:mt-[200px] h-screen">
+            <main className="bg-primarywhite w-screen p-4 sm:mt-[200px]">
                 {children}
             </main>
         </div>
