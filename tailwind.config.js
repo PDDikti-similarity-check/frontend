@@ -17,6 +17,8 @@ module.exports = {
         'lightblue': '#EEF4FF',
         'blue' : '#1B87DC',
         'buttonblue' : '#5DAFEF',
+        'states-danger': '#F0E3E4',
+        'danger': '#D0021B',
       }
     },
   },
