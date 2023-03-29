@@ -20,7 +20,7 @@ function Navbar({ children }) {
 
     return (
         <div className="flex">
-            <nav className="fixed top-0 left-0 w-full h-[160px] bg-gradient-to-r from-[#E7EAEF] to-[#B5CBFC]">
+            <nav className="fixed z-10 top-0 left-0 w-full h-[160px] bg-gradient-to-r from-[#E7EAEF] to-[#B5CBFC]">
                 <div className="flex flex-row items-center justify-between">
                     <div className="items-start ml-[90px] mt-[20px] justify-start">
                         <img src={logo} alt="" className="w-[520px] h-[80px]" />
