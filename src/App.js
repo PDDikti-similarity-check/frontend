@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState, useEffect, Children } from "react";
 
 import { Navbar } from './component';
-import { Beranda, Login, Register, IsiForm, KirimApi, UnggahFile, ManajemenPengguna } from './pages';
+import { Beranda, Login, Register, IsiForm, KirimApi, UnggahFile, ManajemenPengguna, ManajemenModel } from './pages';
 
 function App() {
   useEffect(() => {
@@ -57,6 +57,14 @@ function App() {
             // <PrivateRoute>
                 <Navbar>
                     <ManajemenPengguna />
+                </Navbar>
+            // </PrivateRoute>
+            } 
+        />
+        <Route path="/manajemen/model" element={
+            // <PrivateRoute>
+                <Navbar>
+                    <ManajemenModel />
                 </Navbar>
             // </PrivateRoute>
             } 

@@ -64,6 +64,7 @@ function ManajemenPengguna() {
     {
       Header: "Nama Pengguna",
       accessor: 'name',
+      
     },
     {
       Header: "Username",
