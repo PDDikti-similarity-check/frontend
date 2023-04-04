@@ -436,7 +436,7 @@ function Table({ columns, data }) {
                         // we can add them into the header props
                         <th
                           scope="col"
-                          className="group px-6 py-3 text-left text-[16px] font-bold text-[#26282B] tracking-wider"
+                          className="group px-6 py-3 text-left text-[14px] font-bold text-[#26282B] tracking-wider"
                           {...column.getHeaderProps(column.getSortByToggleProps())}
                         >
                           <div className="flex items-center justify-between">

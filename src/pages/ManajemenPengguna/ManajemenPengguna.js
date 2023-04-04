@@ -64,7 +64,14 @@ function ManajemenPengguna() {
     {
       Header: "Nama Pengguna",
       accessor: 'name',
-      
+      Cell: props => {
+        const { original } = props.cell.row;
+        return ( <>
+          <div
+            className='truncate w-[150px] text-sm text-gray-500'
+            >{props.value}</div> </>
+        )
+      },
     },
     {
       Header: "Username",
