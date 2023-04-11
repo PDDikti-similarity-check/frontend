@@ -58,7 +58,7 @@ function Navbar({ children }) {
                             }
                         >
                             <li className=" list-none pt-4 pb-2 pr-8 pl-4 hover:bg-lightblue hover:text-blue">
-                                <a href="/">
+                                <a href="/profile">
                                     <span className="">
                                         View Profile
                                     </span>

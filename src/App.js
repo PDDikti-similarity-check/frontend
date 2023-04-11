@@ -4,7 +4,17 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState, useEffect, Children } from "react";
 
 import { Navbar } from './component';
-import { Beranda, Login, Register, IsiForm, KirimApi, UnggahFile, ManajemenPengguna, ManajemenModel } from './pages';
+import { Beranda, 
+    Login, 
+    Register, 
+    IsiForm, 
+    KirimApi, 
+    UnggahFile, 
+    ManajemenPengguna, 
+    ManajemenModel,
+    Profile,
+    EditProfile, 
+    EditPassword} from './pages';
 
 function App() {
   useEffect(() => {
@@ -65,6 +75,30 @@ function App() {
             // <PrivateRoute>
                 <Navbar>
                     <ManajemenModel />
+                </Navbar>
+            // </PrivateRoute>
+            } 
+        />
+        <Route path="/profile" element={
+            // <PrivateRoute>
+                <Navbar>
+                    <Profile />
+                </Navbar>
+            // </PrivateRoute>
+            } 
+        />
+        <Route path="/profile/edit" element={
+            // <PrivateRoute>
+                <Navbar>
+                    <EditProfile />
+                </Navbar>
+            // </PrivateRoute>
+            } 
+        />
+        <Route path="/profile/edit/password" element={
+            // <PrivateRoute>
+                <Navbar>
+                    <EditPassword />
                 </Navbar>
             // </PrivateRoute>
             } 

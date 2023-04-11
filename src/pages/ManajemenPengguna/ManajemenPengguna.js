@@ -58,8 +58,8 @@ function ManajemenPengguna() {
     {
         Header: "Nama Organisasi",
         accessor: 'namaOrganisasi',
-        Cell: AvatarCell,
-        imgAccessor: "imgUrl",
+        // Cell: AvatarCell,
+        // imgAccessor: "imgUrl",
     },
     {
       Header: "Nama Pengguna",

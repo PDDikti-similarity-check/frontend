@@ -14,14 +14,14 @@ const TextInput = ({
     children}) => {
         return( 
         <div>
-            <label className="font-raleway text-[14px] font-bold">
+            <label className="font-raleway text-[14px]">
                 {label}
             </label>
             <input 
                 type={type}
                 variant={variant}
                 placeholder={placeholder}
-                className={`${className} ${variant} rounded-[15px] font-raleway text-[12px] border-gray-300 appearance-none mb-3 py-3.5 px-3 leading-tight focus:outline-none focus:shadow-outline`} 
+                className={`${className} ${variant} rounded-[15px] font-raleway text-[12px] border-gray-300 appearance-none w-full mb-3 py-3.5 px-3 leading-tight focus:outline-none focus:shadow-outline`} 
                 value={value}
                 onChange={onChange}
                 id={id}
@@ -43,7 +43,7 @@ const ReqTextInput = ({
     children}) => {
         return( 
         <div>
-            <label className="font-raleway text-[14px] font-bold">
+            <label className="font-raleway text-[14px]">
                 
                 <div className='flex items-center'>
                     {label}
@@ -77,13 +77,13 @@ const DisTextInput = ({
     children}) => {
         return( 
         <div>
-            <label className="font-raleway text-[14px] font-bold">
+            <label className="font-raleway text-[14px]">
                 {label}
             </label>
             <input 
                 type={type}
                 variant={variant}
-                className={`${className} ${variant} rounded-[4px] font-raleway text-[14px] border-gray-300 appearance-none w-full mb-3 py-3.5 px-3 leading-tight focus:outline-none focus:shadow-outline`} 
+                className={`${className} ${variant} bg-[#D9D9D9] rounded-[15px] font-raleway text-[14px] border-black-500 appearance-none w-full mb-3 py-3.5 px-3 leading-tight focus:outline-none focus:shadow-outline`} 
                 value={value}
                 id={id}
                 disabled

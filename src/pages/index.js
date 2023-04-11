@@ -4,3 +4,6 @@ export { default as Register } from './Register';
 export { IsiForm, KirimApi, UnggahFile } from './CekData';
 export { default as ManajemenPengguna } from './ManajemenPengguna/ManajemenPengguna';
 export { default as ManajemenModel } from './ManajemenModel/ManajemenModel';
+export { default as Profile } from './Profile/Profile';
+export { default as EditProfile } from './Profile/EditProfile';
+export { default as EditPassword } from './Profile/EditPassword';
