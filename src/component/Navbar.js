@@ -20,32 +20,33 @@ function Navbar({ children }) {
 
     return (
         <div className="flex">
-            <nav className="fixed z-10 top-0 left-0 w-full h-[160px] bg-gradient-to-r from-[#E7EAEF] to-[#B5CBFC]">
+            <nav className="fixed z-10 top-0 left-0 w-full h-[120px] bg-gradient-to-r from-[#E7EAEF] to-[#B5CBFC]">
                 <div className="flex flex-row items-center justify-between">
                     <div className="items-start ml-[90px] mt-[20px] justify-start">
-                        <img src={logo} alt="" className="w-[520px] h-[80px]" />
+                        <img src={logo} alt="" className="w-[320px] h-[50px]" />
                     </div>
                     <div className="mr-[100px]">
                         <a
-                            className="flex items-center text-black font-bold text-sm font-raleway"
+                            className="flex items-center text-black font-bold text-sm font-raleway cursor-pointer"
+                            onClick={handleNavProfile}
                         >
                             <CgProfile
-                                size={20}
+                                size={15}
                                 color="#2F3780"
                             />
-                            <span className="ml-[10px] text-[18px] font-[500] mr-[10px] text-[#2F3780]">
+                            <span className="ml-[10px] text-[14px] font-[500] mr-[10px] text-[#2F3780]">
                                 Admin
                             </span>
                             <span>
                                 <BsChevronRight
-                                    size={15}
+                                    size={12}
                                     color="#2F3780"
                                     className={
                                         navbarProfile
                                             ? "transition-transform duration-300 rotate-90"
                                             : "transition-transform duration-300 rotate-0"
                                     }
-                                    onClick={handleNavProfile}
+                                    
                                 />
                             </span>
                         </a>
@@ -57,7 +58,7 @@ function Navbar({ children }) {
                             }
                         >
                             <li className=" list-none pt-4 pb-2 pr-8 pl-4 hover:bg-lightblue hover:text-blue">
-                                <a href="/">
+                                <a href="/profile">
                                     <span className="">
                                         View Profile
                                     </span>
@@ -74,10 +75,10 @@ function Navbar({ children }) {
 
                     </div>
                 </div>
-                <div className="mt-[20px] ml-[150px] flex items-center text-black font-[500] text-sm font-raleway">
+                <div className="mt-[20px] ml-[100px] flex items-center text-black font-[500] text-[12px] font-raleway">
                     <ul className="flex flex-row">
                         <li>
-                            <a href="/" className="items-center mr-[60px] uppercase">
+                            <a href="/" className="items-center mr-[40px] uppercase hover:text-blue">
                                 <span className="font-raleway">
                                     Beranda
                                 </span>
@@ -85,21 +86,23 @@ function Navbar({ children }) {
                         </li>
                         <li>
                             <a
-                                className="flex items-center mr-[40px] uppercase"
+                                className="flex items-center mr-[40px] uppercase cursor-pointer"
+                                onClick={handleNavCekData}
+                                
                             >
-                                <span className="mr-[10px]">
+                                <span className="mr-[5px]">
                                     Cek Data
                                 </span>
                                 <span>
                                     <BsChevronRight
-                                        size={15}
+                                        size={12}
                                         color="black"
                                         className={
                                             navbarCekdata
                                                 ? "transition-transform duration-300 rotate-90"
                                                 : "transition-transform duration-300 rotate-0"
                                         }
-                                        onClick={handleNavCekData}
+                                        
                                     />
                                 </span>
                             </a>
@@ -134,14 +137,14 @@ function Navbar({ children }) {
                             </div>
                         </li>
                         <li>
-                            <a href="/manajemen/pengguna" className="flex items-center mr-[60px] uppercase">
+                            <a href="/manajemen/pengguna" className="flex items-center mr-[40px] uppercase hover:text-blue">
                                 <span className="">
                                     Manajemen Pengguna
                                 </span>
                             </a>
                         </li>
                         <li>
-                            <a href="/manajemen/model" className="flex items-center uppercase">
+                            <a href="/manajemen/model" className="flex items-center uppercase hover:text-blue">
                                 <span className="">
                                     Manajemen Model
                                 </span>
@@ -152,7 +155,7 @@ function Navbar({ children }) {
                 
             </nav>
             
-            <main className="bg-primarywhite w-screen p-4 sm:mt-[160px]">
+            <main className="bg-primarywhite w-screen p-4 sm:mt-[120px]">
                 {children}
             </main>
         </div>

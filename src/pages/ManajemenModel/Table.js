@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useTable, useFilters, useGlobalFilter, useAsyncDebounce, useSortBy, usePagination, useRowSelect } from 'react-table';
-import { ChevronDoubleLeftIcon, ChevronLeftIcon, ChevronRightIcon, ChevronDoubleRightIcon, CheckIcon, XIcon, SearchIcon } from '@heroicons/react/solid';
+import { ChevronDoubleLeftIcon, ChevronLeftIcon, ChevronRightIcon, ChevronDoubleRightIcon, CheckIcon, XIcon, PlusCircleIcon } from '@heroicons/react/solid';
 import { Button, PageButton } from '../shared/Button';
 import { useRowSelectColumn } from "@lineup-lite/hooks";
 import { classNames } from '../shared/Utils';
 import { SortIcon, SortUpIcon, SortDownIcon } from '../shared/Icons';
 import { ConfirmModal, WarningModal } from '../../component';
-
 
 function GlobalFilter({
   preGlobalFilteredRows,
@@ -80,8 +79,16 @@ export function StatusPill({ value }) {
     return (
         <span className='flex justify-center'>
             {value == true ? 
-            <CheckIcon className="h-7 w-7 text-blue bg-lightblue border-4 border-lightblue rounded-[10px] " aria-hidden="true" /> : 
-            <XIcon className="h-7 w-7 text-danger bg-states-danger border-4 border-states-danger rounded-[10px] " aria-hidden="true" />}
+            <div className='flex justify-center items-center bg-lightblue border-4 border-lightblue rounded-[10px] px-1'>
+                <CheckIcon className="h-3 w-3 text-blue mr-[5px]" aria-hidden="true" /> 
+                <p className='text-[12px] font-bold text-blue'>Aktif</p>
+            </div>
+            : 
+            <div className='flex justify-center items-center bg-[#EFEEEE] border-4 border-[#EFEEEE] rounded-[10px] px-1'>
+                <XIcon className="h-3 w-3 text-grey mr-[5px]" aria-hidden="true" /> 
+                <p className='text-[12px] font-bold text-grey'>Nonaktif</p>
+            </div>
+            }
         </span>
     );
 };
@@ -148,10 +155,9 @@ export function ActionButtons({ value }) {
 
 function Table({ columns, data }) {
   const [showOptions, setShowOptions] = useState(false);
-  const [showModalIzinUnggah, setShowModalIzinUnggah] = useState(false);
-  const [showModalLarangUnggah, setShowModalLarangUnggah] = useState(false);
-  const [showModalIzinApi, setShowModalIzinApi] = useState(false);
-  const [showModalLarangApi, setShowModalLarangApi] = useState(false);
+  const [showModalAktif, setShowModalAktif] = useState(false);
+  const [showModalNonaktif, setShowModalNonaktif] = useState(false);
+
 
   const {
     getTableProps,
@@ -182,30 +188,30 @@ function Table({ columns, data }) {
     useRowSelectColumn
   )
 
-    function selectedUsers() {
+    function selectedModels() {
         const list = Object.entries(state.selectedRowIds);
-        let listSelectedUser = [];
+        let listSelectedModel = [];
         for (let i = 0; i < list.length; i++) {
             for (let j = 0; j < page.length; j++) {
                 if (list[i][0] === page[j].id) {
-                    listSelectedUser.push({ Id: page[j].original.Id });
+                    listSelectedModel.push({ Id: page[j].original.Id });
                 }
             }
         }
-        return listSelectedUser;
+        return listSelectedModel;
     }
 
 
 
-    let totalSelectedUser = Object.entries(state.selectedRowIds).length;
-    let confTotalSelectedUser = '';
-    if (totalSelectedUser === 0){
-        confTotalSelectedUser = '*Tidak ada organisasi terpilih';
-    } else if (totalSelectedUser === 1) {
-        confTotalSelectedUser = '*1 organisasi terpilih';
+    let totalSelectedModel = Object.entries(state.selectedRowIds).length;
+    let confTotalSelectedModel = '';
+    if (totalSelectedModel === 0){
+        confTotalSelectedModel = '*Tidak ada model terpilih';
+    } else if (totalSelectedModel === 1) {
+        confTotalSelectedModel = '*1 model terpilih';
     } 
     else{
-        confTotalSelectedUser = '*'+totalSelectedUser +' organisasi terpilih';
+        confTotalSelectedModel = '*'+totalSelectedModel +' model terpilih';
     }
 
     const clickHandler = () => {
@@ -214,44 +220,24 @@ function Table({ columns, data }) {
 
   return (
     <>
-    {showModalIzinUnggah? (<ConfirmModal
+    {showModalAktif? (<ConfirmModal
                     label="Konfirmasi"
-                    description="Apakah Anda yakin untuk mengizinkan organisasi unggah fail?"
-                    detail={confTotalSelectedUser}
+                    description="Apakah Anda yakin untuk mengaktifkan model?"
+                    detail={confTotalSelectedModel}
                     rightbutton="Ya, simpan"
                     leftbutton="Kembali"
                     // onClickRight={setStatusToActive}
-                    onClickLeft={() => setShowModalIzinUnggah(false)}
+                    onClickLeft={() => setShowModalAktif(false)}
                 />
             ) : null}
-    {showModalLarangUnggah? (<WarningModal
+    {showModalNonaktif? (<WarningModal
                     label="Konfirmasi"
-                    description="Apakah Anda yakin untuk melarang organisasi unggah fail?"
-                    detail={confTotalSelectedUser}
+                    description="Apakah Anda yakin untuk menonaktifkan model?"
+                    detail={confTotalSelectedModel}
                     rightbutton="Ya, simpan"
                     leftbutton="Kembali"
                     // onClickRight={setStatusToDeactive}
-                    onClickLeft={() => setShowModalLarangUnggah(false)}
-                />
-            ) : null}
-      {showModalIzinApi? (<ConfirmModal
-                    label="Konfirmasi"
-                    description="Apakah Anda yakin untuk mengizinkan organisasi kirim API?"
-                    detail={confTotalSelectedUser}
-                    rightbutton="Ya, simpan"
-                    leftbutton="Kembali"
-                    // onClickRight={setStatusToActive}
-                    onClickLeft={() => setShowModalIzinApi(false)}
-                />
-            ) : null}
-    {showModalLarangApi? (<WarningModal
-                    label="Konfirmasi"
-                    description="Apakah Anda yakin untuk melarang organisasi kirim API"
-                    detail={confTotalSelectedUser}
-                    rightbutton="Ya, simpan"
-                    leftbutton="Kembali"
-                    // onClickRight={setStatusToDeactive}
-                    onClickLeft={() => setShowModalLarangApi(false)}
+                    onClickLeft={() => setShowModalNonaktif(false)}
                 />
             ) : null}
       <div className="flex items-center justify-between">
@@ -276,7 +262,7 @@ function Table({ columns, data }) {
         <div class="flex justify-center items-start">
             <div class="relative inline-block text-left pr-[20px] text-grey">
                 <div>
-                    {confTotalSelectedUser}
+                    {confTotalSelectedModel}
                     <button
                         onClick={clickHandler}
                         type="button"
@@ -312,7 +298,7 @@ function Table({ columns, data }) {
                         >
                             <div role="none">
                                 <div
-                                    onClick={() => [setShowModalIzinUnggah(true), setShowModalLarangUnggah(false), setShowModalIzinApi(false), setShowModalLarangApi(false)]}
+                                    onClick={() => [setShowModalAktif(true), setShowModalNonaktif(false)]}
                                     key="setActive"
                                     class="text-gray-700 block px-2 py-2 text-sm hover:bg-gray-200 hover:rounded-t-default cursor-pointer	"
                                     role="menuitem"
@@ -334,11 +320,11 @@ function Table({ columns, data }) {
                                                 />
                                             </svg>
                                         </div>
-                                        Izinkan Mengunggah Fail
+                                        Ubah Menjadi Aktif
                                     </div>
                                 </div>
                                 <div
-                                    onClick={() => [setShowModalIzinUnggah(false), setShowModalLarangUnggah(true), setShowModalIzinApi(false), setShowModalLarangApi(false)]}
+                                    onClick={() => [setShowModalAktif(false), setShowModalNonaktif(true)]}
                                     key="setInactive"
                                     class="text-gray-700 block px-2 py-2 text-sm hover:bg-gray-200 cursor-pointer	"
                                     role="menuitem"
@@ -360,62 +346,24 @@ function Table({ columns, data }) {
                                                 />
                                             </svg>
                                         </div>
-                                        Larang Mengunggah Fail
+                                        Ubah Menjadi Nonaktif
                                     </div>
                                 </div>
                                 <div
-                                    onClick={() => [setShowModalIzinUnggah(false), setShowModalLarangUnggah(false), setShowModalIzinApi(true), setShowModalLarangApi(false)]}
+                                    // onClick={() => [setShowModalUsersActive(true), setShowModalUsersInactive(false), setShowModalUsersDelete(false)]}
                                     key="setActive"
                                     class="text-gray-700 block px-2 py-2 text-sm hover:bg-gray-200 hover:rounded-t-default cursor-pointer	"
                                     role="menuitem"
                                     tabindex="-1"
                                     id="menu-item-0"
                                 >
-                                    <div className="flex space-x-[2px] items-center justify-start">
+                                    <div className="flex space-x-[2px] items-center justify-start font-bold text-blue bg-lightblue">
                                         <div className="relative inline-flex items-center px-2 py-2 rounded-[5px]">
-                                            <svg
-                                                width="18"
-                                                height="18"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 512 512"
-                                                fill="#1B87DC"
-                                            >
-                                                <path
-                                                    fillRule="evenodd"
-                                                    d="M243.8 339.8C232.9 350.7 215.1 350.7 204.2 339.8L140.2 275.8C129.3 264.9 129.3 247.1 140.2 236.2C151.1 225.3 168.9 225.3 179.8 236.2L224 280.4L332.2 172.2C343.1 161.3 360.9 161.3 371.8 172.2C382.7 183.1 382.7 200.9 371.8 211.8L243.8 339.8zM512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM256 48C141.1 48 48 141.1 48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48z"
-                                                />
-                                            </svg>
+                                            <PlusCircleIcon className="w-5 h-5 text-blue"/>
                                         </div>
-                                        Izinkan Kirim API
+                                        Tambah Model
                                     </div>
                                 </div>
-                                <div
-                                    onClick={() => [setShowModalIzinUnggah(false), setShowModalLarangUnggah(false), setShowModalIzinApi(false), setShowModalLarangApi(true)]}
-                                    key="setInactive"
-                                    class="text-gray-700 block px-2 py-2 text-sm hover:bg-gray-200 cursor-pointer	"
-                                    role="menuitem"
-                                    tabindex="-1"
-                                    id="menu-item-0"
-                                >
-                                    <div className="flex space-x-[2px] items-center justify-start">
-                                        <div className="relative inline-flex items-center px-2 py-2 rounded-[5px]">
-                                            <svg
-                                                width="18"
-                                                height="18"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 512 512"
-                                                fill="#D0021B"
-                                            >
-                                                <path
-                                                    fillRule="evenodd"
-                                                    d="M175 175C184.4 165.7 199.6 165.7 208.1 175L255.1 222.1L303 175C312.4 165.7 327.6 165.7 336.1 175C346.3 184.4 346.3 199.6 336.1 208.1L289.9 255.1L336.1 303C346.3 312.4 346.3 327.6 336.1 336.1C327.6 346.3 312.4 346.3 303 336.1L255.1 289.9L208.1 336.1C199.6 346.3 184.4 346.3 175 336.1C165.7 327.6 165.7 312.4 175 303L222.1 255.1L175 208.1C165.7 199.6 165.7 184.4 175 175V175zM512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM256 48C141.1 48 48 141.1 48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48z"
-                                                />
-                                            </svg>
-                                        </div>
-                                        Larang Kirim API
-                                    </div>
-                                </div>
-                                
                             </div>
                         </div>
                     </div>
@@ -436,12 +384,18 @@ function Table({ columns, data }) {
                         // we can add them into the header props
                         <th
                           scope="col"
-                          className="group px-6 py-3 text-left text-[14px] font-bold text-[#26282B] tracking-wider"
+                          className=" py-4 text-center text-sm font-[800] text-black tracking-wider"
                           {...column.getHeaderProps(column.getSortByToggleProps())}
                         >
-                          <div className="flex items-center justify-between">
-                            {column.render('Header')}
-                            {/* Add a sort direction indicator */}
+                          <div className="flex items-center justify-center">
+                            {column.render(
+                                "Header"
+                            )}
+                            {column.id ===
+                                "selection" &&
+                                column.render(
+                                    "Summary"
+                                )}
                             <span>
                               {column.isSorted
                                 ? column.isSortedDesc
@@ -459,7 +413,7 @@ function Table({ columns, data }) {
                 </thead>
                 <tbody
                   {...getTableBodyProps()}
-                  className="bg-white divide-y divide-gray-200"
+                  className="bg-white divide-y divide-gray-200 text-center "
                 >
                   {page.map((row, i) => {  // new
                     prepareRow(row)
