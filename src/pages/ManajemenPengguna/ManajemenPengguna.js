@@ -53,6 +53,15 @@ const getData = () => {
 }
 
 function ManajemenPengguna() {
+  // const [listUser, setListUser] = useState([]);
+  
+  // useEffect(() => {
+  //   axios.get("/user/retrieve-users").then((response) => {
+  //       // console.log(response.data);
+  //       setListUser(response.data);
+  //       console.log(listUser);
+  //   });
+  // }, []);
 
   const columns = React.useMemo(() => [
     {
@@ -106,6 +115,7 @@ function ManajemenPengguna() {
         <p className='text-xl font-bold'>Manajemen Pengguna</p>
         <div className="mt-6">
           <Table columns={columns} data={data} />
+          {/* <Table columns={columns} data={listUser} /> */}
         </div>
       </main>
     </div>

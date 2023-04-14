@@ -17,7 +17,7 @@ const Beranda = () => {
               <div className='border-2 rounded-[15px] drop-shadow-md bg-[#FBFCFF] h-[270px] w-[300px] flex flex-col items-center pt-5 hover:border-b-blue hover:border-4 hover:text-blue'>
                 <img src={unggahfile} className="w-[150px]" />
                 <span className='items-start font-raleway px-6 pt-3'>
-                  <p className='font-bold text-[14px]'>
+                  <p className='font-bold text-[16px]'>
                     Unggah CSV/XLS
                   </p>
                   <p className='pt-2 text-[12px]'>
@@ -30,7 +30,7 @@ const Beranda = () => {
               <div className='border-2 rounded-[15px] drop-shadow-md bg-[#FBFCFF] h-[270px] w-[300px] flex flex-col items-center pt-5 hover:border-b-blue hover:border-4 hover:text-blue'>
                 <img src={isiform} className="w-[160px]" />
                 <span className='font-raleway px-6 pt-3'>
-                  <p className='font-bold text-[14px]'>
+                  <p className='font-bold text-[16px]'>
                     Isi Formulir
                   </p>
                   <p className='pt-2 text-[12px]'>
@@ -43,7 +43,7 @@ const Beranda = () => {
               <div className='border-2 rounded-[15px] drop-shadow-md bg-[#FBFCFF] h-[270px] w-[300px] flex flex-col items-center pt-5 hover:border-b-blue hover:border-4 hover:text-blue'>
                 <img src={kirimapi} className="w-[105px]" />
                 <span className='font-raleway px-6 pt-3'>
-                  <p className='font-bold text-[14px]'>
+                  <p className='font-bold text-[16px]'>
                     Kirim API
                   </p>
                   <p className='pt-2 text-[12px]'>
