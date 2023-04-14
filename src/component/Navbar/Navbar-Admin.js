@@ -1,11 +1,11 @@
 import React from 'react';
-import logo from "../others/logopddikti.png";
+import logo from "../../others/logopddikti.png";
 import { useNavigate } from "react-router-dom";
 import { BsChevronRight } from "react-icons/bs";
 import { CgProfile } from 'react-icons/cg';
 import { useState } from "react";
 
-function Navbar({ children }) {
+function NavbarAdmin({ children }) {
     let navigate = useNavigate();
     const [navbarCekdata, setNavbarCekdata] = useState(false);
     const [navbarProfile, setNavbarProfile] = useState(false);
@@ -162,4 +162,4 @@ function Navbar({ children }) {
     )
 }
 
-export default Navbar;
+export default NavbarAdmin;

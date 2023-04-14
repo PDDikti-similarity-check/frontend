@@ -23,6 +23,15 @@ const getData = () => {
 }
 
 function ManajemenModel() {
+  // const [listModel, setListModel] = useState([]);
+  
+  // useEffect(() => {
+  //   axios.get("/user/retrieve-users").then((response) => {
+  //       // console.log(response.data);
+  //       setListModel(response.data);
+  //       console.log(listModel);
+  //   });
+  // }, []);
 
   const columns = React.useMemo(() => [
     {
@@ -63,6 +72,7 @@ function ManajemenModel() {
         <p className='text-xl font-bold'>Manajemen Model</p>
         <div className="mt-6">
           <Table columns={columns} data={data} />
+          {/* <Table columns={columns} data={listModel} /> */}
         </div>
       </main>
     </div>

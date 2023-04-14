@@ -3,7 +3,9 @@ import './App.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState, useEffect, Children } from "react";
 
-import { Navbar } from './component';
+import Navbar from './component/Navbar/index';
+import PrivateRoute from "./component/PrivateRoute.jsx";
+
 import { Beranda, 
     Login, 
     Register, 
@@ -19,6 +21,7 @@ import { Beranda,
 function App() {
   useEffect(() => {
     // getResponse()
+    localStorage.setItem("token", false);
   });
   return (
     <div>
@@ -32,75 +35,75 @@ function App() {
                 } 
             />
         <Route path="/" element={
-            // <PrivateRoute>
+            <PrivateRoute>
                 <Navbar>
                     <Beranda />
                 </Navbar>
-            // </PrivateRoute>
+            </PrivateRoute>
             } 
         />
         <Route path="/cekdata/unggahfile" element={
-            // <PrivateRoute>
+            <PrivateRoute>
                 <Navbar>
                     <UnggahFile />
                 </Navbar>
-            // </PrivateRoute>
+            </PrivateRoute>
             } 
         />
         <Route path="/cekdata/isiform" element={
-            // <PrivateRoute>
+            <PrivateRoute>
                 <Navbar>
                     <IsiForm />
                 </Navbar>
-            // </PrivateRoute>
+            </PrivateRoute>
             } 
         />
         <Route path="/cekdata/kirimapi" element={
-            // <PrivateRoute>
+            <PrivateRoute>
                 <Navbar>
                     <KirimApi />
                 </Navbar>
-            // </PrivateRoute>
+            </PrivateRoute>
             } 
         />
         <Route path="/manajemen/pengguna" element={
-            // <PrivateRoute>
+            <PrivateRoute>
                 <Navbar>
                     <ManajemenPengguna />
                 </Navbar>
-            // </PrivateRoute>
+            </PrivateRoute>
             } 
         />
         <Route path="/manajemen/model" element={
-            // <PrivateRoute>
+            <PrivateRoute>
                 <Navbar>
                     <ManajemenModel />
                 </Navbar>
-            // </PrivateRoute>
+            </PrivateRoute>
             } 
         />
         <Route path="/profile" element={
-            // <PrivateRoute>
+            <PrivateRoute>
                 <Navbar>
                     <Profile />
                 </Navbar>
-            // </PrivateRoute>
+            </PrivateRoute>
             } 
         />
         <Route path="/profile/edit" element={
-            // <PrivateRoute>
+            <PrivateRoute>
                 <Navbar>
                     <EditProfile />
                 </Navbar>
-            // </PrivateRoute>
+            </PrivateRoute>
             } 
         />
         <Route path="/profile/edit/password" element={
-            // <PrivateRoute>
+            <PrivateRoute>
                 <Navbar>
                     <EditPassword />
                 </Navbar>
-            // </PrivateRoute>
+            </PrivateRoute>
             } 
         />
       </Routes>
