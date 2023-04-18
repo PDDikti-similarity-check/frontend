@@ -6,7 +6,7 @@ import { useRowSelectColumn } from "@lineup-lite/hooks";
 import { classNames } from '../shared/Utils';
 import { SortIcon, SortUpIcon, SortDownIcon } from '../shared/Icons';
 import { ConfirmModal, WarningModal } from '../../component';
-
+import axios from "axios";
 
 function GlobalFilter({
   preGlobalFilteredRows,
@@ -102,21 +102,21 @@ export function AvatarCell({ value, column, row }) {
 
 export function ActionButtons({ value }) {
 
-    // const deletePengguna = async (e) => {
-    //     e.preventDefault();
-    //     console.log(value);
-    //     await axios.delete("/user/delete-user/" + value).then((response) => {
-    //         window.location.reload(false);
-    //         console.log(response);
-    //     });
-    // };
+    // const BASE_URL = "http://localhost:9091/";
+    const deletePengguna = async (e) => {
+        e.preventDefault();
+        await axios.delete("http://localhost:9091/api/user/delete-user/" + value).then((response) => {
+            window.location.reload(false);
+            console.log(response);
+        });
+    };
 
     return (
         <>
             <div className="flex space-x-[2px] items-center justify-center">                
                 <div className="relative inline-flex items-center px-2 py-2 rounded-[5px]">
                     <svg
-                        // onClick={() => setShowDeleteModal(true)}
+                        onClick={deletePengguna}
                         width="17"
                         height="23"
                         xmlns="http://www.w3.org/2000/svg"
