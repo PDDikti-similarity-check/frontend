@@ -4,8 +4,7 @@ import logo from "../others/logo.png";
 import { TextInput } from "../component";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { BsAt,BsLock } from "react-icons/bs";
-
+import { BsAt, BsLock } from "react-icons/bs";
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -13,34 +12,38 @@ const Login = () => {
     const [error, setError] = useState();
     let navigate = useNavigate();
 
-
     const BASE_URL = "http://localhost:9091/";
 
     const postLogin = async (e) => {
+        e.preventDefault(); 
         const userData = {
             username: username,
             password: password,
         };
         console.log(userData);
-        const response = await axios.post(BASE_URL + "api/login", userData);
-        console.log(response);
-
+        // const response = await axios.post(
+        //     BASE_URL + "api/login",
+        //     userData
+        // );
+        // console.log(response.data);
+        // navigate("/");
         try {
             const response = await axios.post(BASE_URL + "api/login", userData);
             console.log(response.data);
-            localStorage.setItem("userRole", response.data.user.Role);
-            localStorage.setItem("token", true);
-            // localStorage.setItem("userId", response.data.user.Id);
+            const user = response.data
+            localStorage.setItem("userRole", user.role);
+            localStorage.setItem("token", "ada");
+            localStorage.setItem("userId", user.id);
             // if (localStorage.getItem("userRole") != "STAFF") {
             //     localStorage.setItem("identifier", false)
             //     console.log(localStorage.getItem("identifier"));
             // }
             // console.log(localStorage.getItem("identifier"));
             // axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.token;
-            navigate('/Beranda');
+            navigate('/');
         } catch (error) {
             console.log(error.response.status);
-            if (error.response.status == 400) {
+            if (error.response.status == 401) {
                 setError("Invalid Username or Password!");
             }
             console.error(error);
@@ -72,8 +75,7 @@ const Login = () => {
                                     }
                                 />
                                 <BsAt className="text-[20px] mr-5 text-gray-500"></BsAt>
-                            </div>
-                            <div className="flex flex-col space-y-2">
+                            </div>                            <div className="flex flex-col space-y-2">
                                 <div className="flex justify-between items-center w-[450px] rounded-[15px] border border-gray-300 appearance-none ">
                                     <input
                                         placeholder="Password"
@@ -83,22 +85,23 @@ const Login = () => {
                                             setPassword(event.target.value)
                                         }
                                     />
-                                <BsLock className="text-[18px] mr-5 text-gray-500"></BsLock>
+                                    <BsLock className="text-[18px] mr-5 text-gray-500"></BsLock>
                                 </div>
                                 <a className="text-xs text-blue" href="/">
-                                        Forgot Password
+                                    Forgot Password
                                 </a>
                             </div>
                             {/* {error ? ( */}
-                                <div className="flex item-center justify-center">
-                                    <p className="text-sm text-danger">
-                                        {error}
-                                    </p>
-                                </div>
+                            <div className="flex item-center justify-center">
+                                <p className="text-sm text-danger">{error}</p>
+                            </div>
                             {/* ) : null} */}
                         </div>
                         <div className="flex flex-col justify-center items-center mt-[40px]">
-                            <button className="bg-[#5DAFEF] w-[300px] inline-flex justify-center rounded-[8px] py-2 hover:brightness-90 drop-shadow-md text-[14px] font-bold text-white">
+                            <button
+                                type={"submit"}
+                                className="bg-[#5DAFEF] w-[300px] inline-flex justify-center rounded-[8px] py-2 hover:brightness-90 drop-shadow-md text-[14px] font-bold text-white"
+                            >
                                 Sign In
                             </button>
                             <div className="flex flex-row justify-center items-center mt-[20px]">

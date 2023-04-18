@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DisTextInput } from "../../component";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
     const [username, setUsername] = useState("");
@@ -9,37 +10,25 @@ const Profile = () => {
     const [namaorganisasi, setNamaOrganisasi] = useState("");
     const [telepon, setTelepon] = useState("");
     const [namapengguna, setNamaPengguna] = useState("");
-    // const BASE_URL = "http://localhost:9091/";
+    const BASE_URL = "http://localhost:9091/";
+    let navigate = useNavigate();
 
-    // useEffect(() => {
-    //     let userId = localStorage.getItem("userId");
-    //     axios.get("/user/retrieve-user/" + userId).then((response) => {
-    //         console.log(response.data);
-    //         setUser(response.data);
-    //         setUsername(response.data.username);
-    //         setEmail(response.data.email);
-    //         setPassword(response.data.password);
-    //         setNamaOrganisasi(response.data.organization_name);
-    //         setTelepon(response.data.pic_phone_number);
-    //         setNamaPengguna(response.data.pic_name);
-    //         setShowLoading(false)
-    //     });
-    // }, []);
+    useEffect(() => {
+        let userId = localStorage.getItem("userId");
+        axios.get(BASE_URL + "api/user/" + userId).then((response) => {
+            console.log(response.data);
+            setUsername(response.data.username);
+            setEmail(response.data.email);
+            setPassword(response.data.password);
+            setNamaOrganisasi(response.data.organization_name);
+            setTelepon(response.data.pic_phone_number);
+            setNamaPengguna(response.data.pic_name);
+        });
+    }, []);
 
-    // const getUser = async (e) => {
-    //     const userData = {
-    //         username: username,
-    //         email: email,
-    //         password: password,
-    //         role: "USER",
-    //         organization_name: namaorganisasi,
-    //         pic_phone_number: telepon,
-    //         pic_name: namapengguna,
-    //     };
-    //     console.log(userData)
-    //     const response = await axios.post(BASE_URL + "api/register", userData)
-    //     console.log(response)
-    // };
+    const handleEdit = () =>{
+        navigate("/profile/edit");
+    }
 
     return (
         <>
@@ -49,7 +38,7 @@ const Profile = () => {
         <div className="mt-[30px] flex justify-center">
             <div className="border-2 rounded-[15px] drop-shadow-md bg-white h-[380px] w-[850px]">
                 <div className="flex justify-end mt-[30px] mr-[40px]">
-                    <button className="bg-[#5DAFEF] w-[100px] inline-flex justify-center rounded-[8px] py-2 hover:brightness-90 shadow shadow-sd text-[14px] font-bold text-white">
+                    <button className="bg-[#5DAFEF] w-[100px] inline-flex justify-center rounded-[8px] py-2 hover:brightness-90 shadow shadow-sd text-[14px] font-bold text-white" onClick={handleEdit}>
                         Edit
                     </button>
                 </div>
@@ -98,7 +87,7 @@ const Profile = () => {
                         <DisTextInput
                             label="Password"
                             type="password"
-                            value="hahhaha"
+                            value={password.slice(0,8)}
                             className="w-[400px]"
                         />
                     </div>

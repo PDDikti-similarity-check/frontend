@@ -9,37 +9,35 @@ const EditProfile = () => {
     const [namaorganisasi, setNamaOrganisasi] = useState("");
     const [telepon, setTelepon] = useState("");
     const [namapengguna, setNamaPengguna] = useState("");
-    // const BASE_URL = "http://localhost:9091/";
+    const BASE_URL = "http://localhost:9091/";
 
-    // useEffect(() => {
-    //     let userId = localStorage.getItem("userId");
-    //     axios.get("/user/retrieve-user/" + userId).then((response) => {
-    //         console.log(response.data);
-    //         setUser(response.data);
-    //         setUsername(response.data.username);
-    //         setEmail(response.data.email);
-    //         setPassword(response.data.password);
-    //         setNamaOrganisasi(response.data.organization_name);
-    //         setTelepon(response.data.pic_phone_number);
-    //         setNamaPengguna(response.data.pic_name);
-    //         setShowLoading(false)
-    //     });
-    // }, []);
+    useEffect(() => {
+        let userId = localStorage.getItem("userId");
+        axios.get(BASE_URL + "api/user/" + userId).then((response) => {
+            console.log(response.data);
+            setUsername(response.data.username);
+            setEmail(response.data.email);
+            setPassword(response.data.password);
+            setNamaOrganisasi(response.data.organization_name);
+            setTelepon(response.data.pic_phone_number);
+            setNamaPengguna(response.data.pic_name);
+        });
+    }, []);
 
-    // const getUser = async (e) => {
-    //     const userData = {
-    //         username: username,
-    //         email: email,
-    //         password: password,
-    //         role: "USER",
-    //         organization_name: namaorganisasi,
-    //         pic_phone_number: telepon,
-    //         pic_name: namapengguna,
-    //     };
-    //     console.log(userData)
-    //     const response = await axios.post(BASE_URL + "api/register", userData)
-    //     console.log(response)
-    // };
+    const UpdateUser = async (e) => {
+        const userData = {
+            username: username,
+            email: email,
+            password: password,
+            role: "USER",
+            organization_name: namaorganisasi,
+            pic_phone_number: telepon,
+            pic_name: namapengguna,
+        };
+        console.log(userData)
+        // const response = await axios.post(BASE_URL + "api/register", userData)
+        // console.log(response)
+    };
 
     const handleNamaOrg = (event) => {
         if (event.target.value !== "") {
