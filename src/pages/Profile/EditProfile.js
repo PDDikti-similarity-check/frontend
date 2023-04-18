@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { DisTextInput, TextInput } from "../../component";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const EditProfile = () => {
     const [username, setUsername] = useState("");
@@ -9,6 +11,8 @@ const EditProfile = () => {
     const [namaorganisasi, setNamaOrganisasi] = useState("");
     const [telepon, setTelepon] = useState("");
     const [namapengguna, setNamaPengguna] = useState("");
+    let navigate = useNavigate();
+
     const BASE_URL = "http://localhost:9091/";
 
     useEffect(() => {
@@ -60,6 +64,10 @@ const EditProfile = () => {
         }
     };
 
+    const handleEditPassword = () =>{
+        navigate("/profile/edit/password");
+    }
+
     return (
         <>
         <p class="font-[700] flex justify-center text-[20px] mt-[20px]">
@@ -110,15 +118,15 @@ const EditProfile = () => {
                         <DisTextInput
                             label="Password"
                             type="password"
-                            value="hahhaha"
+                            value={password}
                         />
-                        <a className="text-blue">Change Password</a>
+                        <a onClick={handleEditPassword} className="text-blue cursor-pointer">Change Password</a>
                     </div>
                 </div>
             </div>
         </div>
         <div className="flex justify-center mt-[30px] space-x-4">
-            <button className="border-[#5DAFEF] border-2 text-[#5DAFEF] w-[100px] inline-flex justify-center rounded-[8px] py-2 hover:brightness-90 shadow shadow-sd text-[14px] font-bold text-white">
+            <button className="border-[#5DAFEF] border-2 text-[#5DAFEF] w-[100px] inline-flex justify-center rounded-[8px] py-2 hover:brightness-90 shadow shadow-sd text-[14px] font-bold">
                 Batal
             </button>
             <button className="bg-[#5DAFEF] w-[100px] inline-flex justify-center rounded-[8px] py-2 hover:brightness-90 shadow shadow-sd text-[14px] font-bold text-white">

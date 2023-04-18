@@ -9,6 +9,7 @@ function NavbarUser({ children }) {
     let navigate = useNavigate();
     const [navbarCekdata, setNavbarCekdata] = useState(false);
     const [navbarProfile, setNavbarProfile] = useState(false);
+    const username = localStorage.getItem('username')
 
 
     const handleNavCekData = () => {
@@ -38,7 +39,7 @@ function NavbarUser({ children }) {
                         >
                             <CgProfile size={15} color="#2F3780" />
                             <span className="ml-[10px] text-[14px] font-[500] mr-[10px] text-[#2F3780]">
-                                User
+                                {username}
                             </span>
                             <span>
                                 <BsChevronRight

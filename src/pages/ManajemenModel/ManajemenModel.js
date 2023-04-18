@@ -58,10 +58,10 @@ function ManajemenModel() {
       Cell: StatusPill,
     },
     {
-        Header: "",
-        accessor: "Id",
-        Cell: ActionButtons
-      },
+      Header: "",
+      accessor: "Id",
+      Cell: ActionButtons
+    },
   ], [])
 
   const data = React.useMemo(() => getData(), [])

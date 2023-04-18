@@ -18,7 +18,7 @@ const ConfirmModal = ({label, description, detail, leftbutton, rightbutton, onCl
                             </div>
                             <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                 <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{label}</h3>
-                                <div class="mt-2">
+                                <div class="mt-2 whitespace-normal">
                                     <p class="text-sm text-gray-500">{description}</p>
                                 </div>
                                 <div class="mt-2">
@@ -55,7 +55,7 @@ const WarningModal = ({label, description, detail, leftbutton, rightbutton, onCl
                               </div>
                               <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                   <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{label}</h3>
-                                  <div class="mt-2">
+                                  <div class="mt-2 whitespace-normal">
                                       <p class="text-sm text-gray-500">{description}</p>
                                   </div>
                                   <div class="mt-2">

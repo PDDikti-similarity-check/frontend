@@ -34,12 +34,7 @@ const Login = () => {
             localStorage.setItem("userRole", user.role);
             localStorage.setItem("token", "ada");
             localStorage.setItem("userId", user.id);
-            // if (localStorage.getItem("userRole") != "STAFF") {
-            //     localStorage.setItem("identifier", false)
-            //     console.log(localStorage.getItem("identifier"));
-            // }
-            // console.log(localStorage.getItem("identifier"));
-            // axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.token;
+            localStorage.setItem("username", user.username);
             navigate('/');
         } catch (error) {
             console.log(error.response.status);
@@ -68,34 +63,36 @@ const Login = () => {
                             <div className="flex justify-between items-center w-[450px] rounded-[15px] border border-gray-300 appearance-none ">
                                 <input
                                     placeholder="Username"
-                                    className="w-[500px] rounded-[15px] text-[14px] font-raleway text-[12px] w-full py-4 px-5 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="w-[500px] rounded-[15px] text-[14px] font-raleway text-[12px] w-full py-4 px-5 leading-tight focus:outline-[#2563eb] focus:outline-none focus:outline-offset-0 focus:outline-[1px]"
                                     value={username}
                                     onChange={(event) =>
                                         setUsername(event.target.value)
                                     }
                                 />
-                                <BsAt className="text-[20px] mr-5 text-gray-500"></BsAt>
-                            </div>                            <div className="flex flex-col space-y-2">
+                                <BsAt className="text-[20px] ml-5 mr-5 text-gray-500"></BsAt>
+                            </div>                            
+                            <div className="flex flex-col space-y-2">
                                 <div className="flex justify-between items-center w-[450px] rounded-[15px] border border-gray-300 appearance-none ">
                                     <input
                                         placeholder="Password"
-                                        className="w-[500px] rounded-[15px] text-[14px] font-raleway text-[12px] w-full py-4 px-5 leading-tight focus:outline-none focus:shadow-outline"
+                                        className="w-[500px] rounded-[15px] text-[14px] font-raleway text-[12px] w-full py-4 px-5 leading-tight outline-none border-none focus:border-none focus:outline-none"
                                         value={password}
+                                        type="password"
                                         onChange={(event) =>
                                             setPassword(event.target.value)
                                         }
                                     />
-                                    <BsLock className="text-[18px] mr-5 text-gray-500"></BsLock>
+                                    <BsLock className="text-[18px] ml-5 mr-5 text-gray-500"></BsLock>
                                 </div>
                                 <a className="text-xs text-blue" href="/">
                                     Forgot Password
                                 </a>
                             </div>
-                            {/* {error ? ( */}
+                            {error ? (
                             <div className="flex item-center justify-center">
                                 <p className="text-sm text-danger">{error}</p>
                             </div>
-                            {/* ) : null} */}
+                            ) : null}
                         </div>
                         <div className="flex flex-col justify-center items-center mt-[40px]">
                             <button
