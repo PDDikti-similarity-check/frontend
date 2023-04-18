@@ -18,6 +18,12 @@ function NavbarUser({ children }) {
         setNavbarProfile(!navbarProfile);
     };
 
+    const handleLogout = () => {
+        // delete axios.defaults.headers.common["Authorization"];
+        localStorage.clear();
+        navigate("/login");
+    };
+
     return (
         <div className="flex">
             <nav className="fixed z-10 top-0 left-0 w-full h-[120px] bg-gradient-to-r from-[#E7EAEF] to-[#B5CBFC]">
@@ -30,12 +36,9 @@ function NavbarUser({ children }) {
                             className="flex items-center text-black font-bold text-sm font-raleway cursor-pointer"
                             onClick={handleNavProfile}
                         >
-                            <CgProfile
-                                size={15}
-                                color="#2F3780"
-                            />
+                            <CgProfile size={15} color="#2F3780" />
                             <span className="ml-[10px] text-[14px] font-[500] mr-[10px] text-[#2F3780]">
-                                Admin
+                                User
                             </span>
                             <span>
                                 <BsChevronRight
@@ -46,7 +49,6 @@ function NavbarUser({ children }) {
                                             ? "transition-transform duration-300 rotate-90"
                                             : "transition-transform duration-300 rotate-0"
                                     }
-                                    
                                 />
                             </span>
                         </a>
@@ -59,40 +61,36 @@ function NavbarUser({ children }) {
                         >
                             <li className=" list-none pt-4 pb-2 pr-8 pl-4 hover:bg-lightblue hover:text-blue">
                                 <a href="/profile">
-                                    <span className="">
-                                        View Profile
-                                    </span>
+                                    <span className="">View Profile</span>
                                 </a>
                             </li>
-                            <li className="list-none pt-2 pb-4 pr-8 pl-4 hover:bg-lightblue hover:text-blue">
-                                <a href="/">
-                                    <span className="">
-                                        Logout
-                                    </span>
+                            <li
+                                className="list-none pt-2 pb-4 pr-8 pl-4 hover:bg-lightblue hover:text-blue"
+                                onClick={handleLogout}
+                            >
+                                <a>
+                                    <span className="">Logout</span>
                                 </a>
                             </li>
                         </div>
-
                     </div>
                 </div>
                 <div className="mt-[20px] ml-[100px] flex items-center text-black font-[500] text-[12px] font-raleway">
                     <ul className="flex flex-row">
                         <li>
-                            <a href="/" className="items-center mr-[40px] uppercase hover:text-blue">
-                                <span className="font-raleway">
-                                    Beranda
-                                </span>
+                            <a
+                                href="/"
+                                className="items-center mr-[40px] uppercase hover:text-blue"
+                            >
+                                <span className="font-raleway">Beranda</span>
                             </a>
                         </li>
                         <li>
                             <a
                                 className="flex items-center mr-[40px] uppercase cursor-pointer"
                                 onClick={handleNavCekData}
-                                
                             >
-                                <span className="mr-[5px]">
-                                    Cek Data
-                                </span>
+                                <span className="mr-[5px]">Cek Data</span>
                                 <span>
                                     <BsChevronRight
                                         size={12}
@@ -102,7 +100,6 @@ function NavbarUser({ children }) {
                                                 ? "transition-transform duration-300 rotate-90"
                                                 : "transition-transform duration-300 rotate-0"
                                         }
-                                        
                                     />
                                 </span>
                             </a>
@@ -115,37 +112,30 @@ function NavbarUser({ children }) {
                             >
                                 <li className="pt-4 pb-2 pr-2 pl-4 hover:bg-lightblue hover:text-blue">
                                     <a href="/cekdata/unggahfile">
-                                        <span className="">
-                                            Unggah File
-                                        </span>
+                                        <span className="">Unggah File</span>
                                     </a>
                                 </li>
                                 <li className="pt-2 pb-2 pr-2 pl-4 hover:bg-lightblue hover:text-blue">
                                     <a href="/cekdata/isiform">
-                                        <span className="">
-                                            Isi Formulir
-                                        </span>
+                                        <span className="">Isi Formulir</span>
                                     </a>
                                 </li>
                                 <li className="pt-2 pb-4 pr-2 pl-4 hover:bg-lightblue hover:text-blue">
                                     <a href="/cekdata/kirimapi">
-                                        <span className="">
-                                            Kirim API
-                                        </span>
+                                        <span className="">Kirim API</span>
                                     </a>
                                 </li>
                             </div>
                         </li>
                     </ul>
                 </div>
-                
             </nav>
-            
+
             <main className="bg-primarywhite w-screen p-4 sm:mt-[120px]">
                 {children}
             </main>
         </div>
-    )
+    );
 }
 
 export default NavbarUser;

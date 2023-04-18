@@ -19,10 +19,9 @@ import { Beranda,
     EditPassword} from './pages';
 
 function App() {
-  useEffect(() => {
-    // getResponse()
-    localStorage.setItem("token", false);
-  });
+//   useEffect(() => {
+//     localStorage.setItem("token", true);
+//   });
   return (
     <div>
       <Routes>
