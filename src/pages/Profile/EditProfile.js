@@ -3,12 +3,12 @@ import { DisTextInput, TextInput } from "../../component";
 import axios from "axios";
 
 const EditProfile = () => {
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [namaorganisasi, setNamaOrganisasi] = useState("");
-    const [telepon, setTelepon] = useState("");
-    const [namapengguna, setNamaPengguna] = useState("");
+    const [username, setUsername] = useState(" ");
+    const [email, setEmail] = useState(" ");
+    const [password, setPassword] = useState(" ");
+    const [namaorganisasi, setNamaOrganisasi] = useState(" ");
+    const [telepon, setTelepon] = useState(" ");
+    const [namapengguna, setNamaPengguna] = useState(" ");
     const BASE_URL = "http://localhost:9091/";
 
     useEffect(() => {
@@ -25,6 +25,7 @@ const EditProfile = () => {
     }, []);
 
     const UpdateUser = async (e) => {
+        let userId = localStorage.getItem("userId");
         const userData = {
             username: username,
             email: email,
@@ -35,8 +36,13 @@ const EditProfile = () => {
             pic_name: namapengguna,
         };
         console.log(userData)
-        // const response = await axios.post(BASE_URL + "api/register", userData)
-        // console.log(response)
+        e.preventDefault();
+        await axios
+            .put("http://localhost:9091/api/user/update-profile/" + userId , userData)
+            .then((response) => {
+                window.location.reload(false);
+                console.log(response);
+            });
     };
 
     const handleNamaOrg = (event) => {
@@ -121,7 +127,7 @@ const EditProfile = () => {
             <button className="border-[#5DAFEF] border-2 text-[#5DAFEF] w-[100px] inline-flex justify-center rounded-[8px] py-2 hover:brightness-90 shadow shadow-sd text-[14px] font-bold text-white">
                 Batal
             </button>
-            <button className="bg-[#5DAFEF] w-[100px] inline-flex justify-center rounded-[8px] py-2 hover:brightness-90 shadow shadow-sd text-[14px] font-bold text-white">
+            <button className="bg-[#5DAFEF] w-[100px] inline-flex justify-center rounded-[8px] py-2 hover:brightness-90 shadow shadow-sd text-[14px] font-bold text-white" onClick={UpdateUser}>
                 Simpan
             </button>
         </div>
