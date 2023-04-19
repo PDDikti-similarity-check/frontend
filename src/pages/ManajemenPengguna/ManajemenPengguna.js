@@ -111,7 +111,7 @@ function ManajemenPengguna() {
                 Cell: StatusPill,
             },
             {
-                Header: "",
+                Header: " ",
                 accessor: "id",
                 Cell: ActionButtons,
             },
