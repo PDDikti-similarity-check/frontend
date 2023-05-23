@@ -8,7 +8,6 @@ const UnggahFile = () => {
     const [excelFileError, setExcelFileError] = useState(null);
     const [excelData, setExcelData] = useState(null);
     const downloadTemplate = () => {
-        // using Java Script method to get PDF file
         fetch("Similarity Check - PDDikti.xlsx").then((response) => {
             response.blob().then((blob) => {
                 // Creating new object of PDF file
@@ -40,32 +39,23 @@ const UnggahFile = () => {
         e.preventDefault();
         if (excelFile !== null) {
             const workbook = XLSX.read(excelFile, { type: "buffer" });
-            // console.log(workbook.Sheets.CekKesesuaianData["A" + "1"].w);
-            workbook.Sheets.CekKesesuaianData["A" + "1"].w =
-                workbook.Sheets.CekKesesuaianData["A" + "1"].w.replaceAll(
-                    " ",
-                    "_"
-                );
-            workbook.Sheets.CekKesesuaianData["B" + "1"].w =
-                workbook.Sheets.CekKesesuaianData["B" + "1"].w.replaceAll(
-                    " ",
-                    "_"
-                );
-            workbook.Sheets.CekKesesuaianData["C" + "1"].w =
-                workbook.Sheets.CekKesesuaianData["C" + "1"].w.replaceAll(
-                    " ",
-                    "_"
-                );
-            workbook.Sheets.CekKesesuaianData["D" + "1"].w =
-                workbook.Sheets.CekKesesuaianData["D" + "1"].w.replaceAll(
-                    " ",
-                    "_"
-                );
-            workbook.Sheets.CekKesesuaianData["E" + "1"].w =
-                workbook.Sheets.CekKesesuaianData["E" + "1"].w.replaceAll(
-                    " ",
-                    "_"
-                );
+            // console.log(workbook.Sheets.Sheet1["A1"])
+            // console.log(workbook.Sheets.Sheet1["A1"]);
+            // workbook.Sheets.Sheet1["A" + "1"].w = workbook.Sheets.Sheet1[
+            //     "A" + "1"
+            // ].w.replaceAll(" ", "_");
+            // workbook.Sheets.Sheet1["B" + "1"].w = workbook.Sheets.Sheet1[
+            //     "B" + "1"
+            // ].w.replaceAll(" ", "_");
+            // workbook.Sheets.Sheet1["C" + "1"].w = workbook.Sheets.Sheet1[
+            //     "C" + "1"
+            // ].w.replaceAll(" ", "_");
+            // workbook.Sheets.Sheet1["D" + "1"].w = workbook.Sheets.Sheet1[
+            //     "D" + "1"
+            // ].w.replaceAll(" ", "_");
+            // workbook.Sheets.Sheet1["E" + "1"].w = workbook.Sheets.Sheet1[
+            //     "E" + "1"
+            // ].w.replaceAll(" ", "_");
 
             const worksheetName = workbook.SheetNames[0]; // Sheet
             const worksheet = workbook.Sheets[worksheetName];
@@ -77,7 +67,7 @@ const UnggahFile = () => {
             setExcelData(null);
         }
     };
-    console.log(excelFile)
+    console.log(excelData);
 
     return (
         <div>
