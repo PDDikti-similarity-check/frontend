@@ -6,17 +6,20 @@ import { useState, useEffect, Children } from "react";
 import Navbar from './component/Navbar/index';
 import PrivateRoute from "./component/PrivateRoute.jsx";
 
-import { Beranda, 
-    Login, 
-    Register, 
-    IsiForm, 
-    KirimApi, 
-    UnggahFile, 
-    ManajemenPengguna, 
+import {
+    Beranda,
+    Login,
+    Register,
+    IsiForm,
+    KirimApi,
+    UnggahFile,
+    ManajemenPengguna,
     ManajemenModel,
     Profile,
-    EditProfile, 
-    EditPassword} from './pages';
+    EditProfile,
+    EditPassword,
+    LupaPassword,
+} from "./pages";
 
 function App() {
 //   useEffect(() => {
@@ -25,6 +28,10 @@ function App() {
   return (
     <div>
       <Routes>
+        <Route path="/forget-password/:token" element={
+            <LupaPassword />
+        }
+        />
         <Route path="/register" element={
                 <Register />
                 } 

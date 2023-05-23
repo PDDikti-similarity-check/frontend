@@ -7,3 +7,4 @@ export { default as ManajemenModel } from './ManajemenModel/ManajemenModel';
 export { default as Profile } from './Profile/Profile';
 export { default as EditProfile } from './Profile/EditProfile';
 export { default as EditPassword } from './Profile/EditPassword';
+export { default as LupaPassword} from './ForgetPassword/ForgetPassword';
