@@ -3,6 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@canvasjs/charts": "^3.7.7",
+        "@canvasjs/react-charts": "^1.0.0",
         "@heroicons/react": "^1.0.6",
         "@lineup-lite/hooks": "^1.7.0",
         "@tailwindcss/forms": "^0.5.3",

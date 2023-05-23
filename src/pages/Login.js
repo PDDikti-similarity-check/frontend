@@ -84,7 +84,7 @@ const Login = () => {
                                     />
                                     <BsLock className="text-[18px] ml-5 mr-5 text-gray-500"></BsLock>
                                 </div>
-                                <a className="text-xs text-blue" href="/">
+                                <a className="text-[14px] text-blue cursor-pointer" onClick={() => navigate("/login/lupa-katasandi")}>
                                     Forgot Password
                                 </a>
                             </div>
