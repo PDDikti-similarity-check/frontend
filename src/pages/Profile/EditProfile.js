@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { DisTextInput, TextInput } from "../../component";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const EditProfile = () => {
     const [username, setUsername] = useState("");
@@ -9,6 +11,8 @@ const EditProfile = () => {
     const [namaorganisasi, setNamaOrganisasi] = useState("");
     const [telepon, setTelepon] = useState("");
     const [namapengguna, setNamaPengguna] = useState("");
+    let navigate = useNavigate();
+
     const BASE_URL = "http://localhost:9091/";
 
     useEffect(() => {
@@ -66,6 +70,10 @@ const EditProfile = () => {
         // }
         setTelepon(event.target.value)
     };
+
+    const handleEditPassword = () =>{
+        navigate("/profile/edit/password");
+    }
 
     return (
         <>
