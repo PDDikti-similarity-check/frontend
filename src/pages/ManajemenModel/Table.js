@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTable, useFilters, useGlobalFilter, useAsyncDebounce, useSortBy, usePagination, useRowSelect } from 'react-table';
 import { ChevronDoubleLeftIcon, ChevronLeftIcon, ChevronRightIcon, ChevronDoubleRightIcon, CheckIcon, XIcon, PlusCircleIcon } from '@heroicons/react/solid';
 import { Button, PageButton } from '../shared/Button';
@@ -6,6 +6,9 @@ import { useRowSelectColumn } from "@lineup-lite/hooks";
 import { classNames } from '../shared/Utils';
 import { SortIcon, SortUpIcon, SortDownIcon } from '../shared/Icons';
 import { ConfirmModal, WarningModal } from '../../component';
+import { BsTrash } from "react-icons/bs";
+import axios from "axios";
+
 
 function GlobalFilter({
   preGlobalFilteredRows,
@@ -108,8 +111,30 @@ export function AvatarCell({ value, column, row }) {
 }
 
 export function ActionButtons({ value }) {
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showActivateModal, setShowActivateModal] = useState(false);
+  const [statusActive, setStatusActive] = useState(false);
 
-    // const deletePengguna = async (e) => {
+    // const deleteModel = async (e) => {
+    //     e.preventDefault();
+    //     console.log(value);
+    //     await axios.delete("/user/delete-user/" + value).then((response) => {
+    //         window.location.reload(false);
+    //         console.log(response);
+    //     });
+    // };
+    
+
+    // useEffect(() => {
+    //   axios.get("/api minta status /" + value).then((response) => {
+    //     console.log(response);
+    //     setStatusActive(response.data);
+    //   });
+    // }, []);
+
+
+    //yang ini maunya apinya bisa buat modal di row itu jd aktif sisanya non aktif
+    // const activateModel = async (e) => {
     //     e.preventDefault();
     //     console.log(value);
     //     await axios.delete("/user/delete-user/" + value).then((response) => {
@@ -122,33 +147,35 @@ export function ActionButtons({ value }) {
         <>
             <div className="flex space-x-[2px] items-center justify-center">                
                 <div className="relative inline-flex items-center px-2 py-2 rounded-[5px]">
-                    <svg
-                        // onClick={() => setShowDeleteModal(true)}
-                        width="17"
-                        height="23"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="-30 -50 500 600"
-                        fill="#D0021B"
-                        className=' outline outline-offset-4 outline-1 rounded-[4px] outline-states-danger'
-                    >
-                        <path
-                            fillRule="evenodd" 
-                            d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"
-                            clipRule="evenodd"
-                        />
-                    </svg>
+                    <BsTrash className='text-danger text-[16px] outline outline-offset-4 outline-1 rounded-[2px] outline-states-danger' onClick={() => [setShowActivateModal(false), setShowDeleteModal(true)]}></BsTrash>
                 </div>
-                {/* {showDeleteModal ? (
+                {statusActive !== true? 
+                <button className='inline-flex justify-center rounded-[8px] hover:brightness-90 text-[12px] font-bold text-white w-fit p-2 bg-[#5DAFEF]' onClick={() => [setShowActivateModal(true), setShowDeleteModal(false)]}>Aktifkan</button>
+                : 
+                null
+                }
+              
+            </div>
+            {showDeleteModal ? (
                     <WarningModal
                         label="Warning"
-                        description="Are you sure you want to delete employee?"
-                        rightbutton="Delete"
-                        leftbutton="Cancel"
-                        onClickRight={deleteEmp}
+                        description="Apakah Anda yakin untuk menghapus model?"
+                        rightbutton="Hapus"
+                        leftbutton="Batal"
+                        // onClickRight={deleteModel}
                         onClickLeft={() => setShowDeleteModal(false)}
                     />
-                ) : null} */}
-            </div>
+                ) : null}
+            {showActivateModal ? (
+                    <ConfirmModal
+                        label="Confirmation"
+                        description="Apakah Anda yakin untuk mengaktifkan model?"
+                        rightbutton="Aktifkan"
+                        leftbutton="Batal"
+                        // onClickRight={activateModel}
+                        onClickLeft={() => setShowActivateModal(false)}
+                    />
+                ) : null}
         </>
     );
 }
@@ -156,7 +183,7 @@ export function ActionButtons({ value }) {
 function Table({ columns, data }) {
   const [showOptions, setShowOptions] = useState(false);
   const [showModalAktif, setShowModalAktif] = useState(false);
-  const [showModalNonaktif, setShowModalNonaktif] = useState(false);
+
 
 
   const {
@@ -220,26 +247,6 @@ function Table({ columns, data }) {
 
   return (
     <>
-    {showModalAktif? (<ConfirmModal
-                    label="Konfirmasi"
-                    description="Apakah Anda yakin untuk mengaktifkan model?"
-                    detail={confTotalSelectedModel}
-                    rightbutton="Ya, simpan"
-                    leftbutton="Kembali"
-                    // onClickRight={setStatusToActive}
-                    onClickLeft={() => setShowModalAktif(false)}
-                />
-            ) : null}
-    {showModalNonaktif? (<WarningModal
-                    label="Konfirmasi"
-                    description="Apakah Anda yakin untuk menonaktifkan model?"
-                    detail={confTotalSelectedModel}
-                    rightbutton="Ya, simpan"
-                    leftbutton="Kembali"
-                    // onClickRight={setStatusToDeactive}
-                    onClickLeft={() => setShowModalNonaktif(false)}
-                />
-            ) : null}
       <div className="flex items-center justify-between">
         <div className="flex gap-x-2">
             <GlobalFilter
@@ -261,114 +268,20 @@ function Table({ columns, data }) {
         </div>
         <div class="flex justify-center items-start">
             <div class="relative inline-block text-left pr-[20px] text-grey">
-                <div>
-                    {confTotalSelectedModel}
-                    <button
-                        onClick={clickHandler}
-                        type="button"
-                        class="inline-flex w-[120px] ml-[20px] h-[35px] mb-0.5 items-center justify-center gap-x-3 rounded-[8px] bg-blue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#5DAFEF]"
-                        id="menu-button"
-                        aria-expanded="true"
-                        aria-haspopup="true"
-                    >
-                        Action
-                        <svg
-                            class="-mr-1 h-5 w-5 text-gray-400"
-                            viewBox="0 0 20 20"
-                            fill="white"
-                            aria-hidden="true"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                                clip-rule="evenodd"
-                            />
-                        </svg>
-                    </button>
-                </div>
-
-                {showOptions && (
-                    <div class="">
-                        <div
-                            class="absolute right-0 z-10 mt-3 w-56 origin-top-right rounded-[8px] bg-white shadow drop-shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                            role="menu"
-                            aria-orientation="vertical"
-                            aria-labelledby="menu-button"
-                            tabindex="-1"
-                        >
-                            <div role="none">
-                                <div
-                                    onClick={() => [setShowModalAktif(true), setShowModalNonaktif(false)]}
-                                    key="setActive"
-                                    class="text-gray-700 block px-2 py-2 text-sm hover:bg-gray-200 hover:rounded-t-default cursor-pointer	"
-                                    role="menuitem"
-                                    tabindex="-1"
-                                    id="menu-item-0"
-                                >
-                                    <div className="flex space-x-[2px] items-center justify-start">
-                                        <div className="relative inline-flex items-center px-2 py-2 rounded-[5px]">
-                                            <svg
-                                                width="18"
-                                                height="18"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 512 512"
-                                                fill="#1B87DC"
-                                            >
-                                                <path
-                                                    fillRule="evenodd"
-                                                    d="M243.8 339.8C232.9 350.7 215.1 350.7 204.2 339.8L140.2 275.8C129.3 264.9 129.3 247.1 140.2 236.2C151.1 225.3 168.9 225.3 179.8 236.2L224 280.4L332.2 172.2C343.1 161.3 360.9 161.3 371.8 172.2C382.7 183.1 382.7 200.9 371.8 211.8L243.8 339.8zM512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM256 48C141.1 48 48 141.1 48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48z"
-                                                />
-                                            </svg>
-                                        </div>
-                                        Ubah Menjadi Aktif
-                                    </div>
-                                </div>
-                                <div
-                                    onClick={() => [setShowModalAktif(false), setShowModalNonaktif(true)]}
-                                    key="setInactive"
-                                    class="text-gray-700 block px-2 py-2 text-sm hover:bg-gray-200 cursor-pointer	"
-                                    role="menuitem"
-                                    tabindex="-1"
-                                    id="menu-item-0"
-                                >
-                                    <div className="flex space-x-[2px] items-center justify-start">
-                                        <div className="relative inline-flex items-center px-2 py-2 rounded-[5px]">
-                                            <svg
-                                                width="18"
-                                                height="18"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 512 512"
-                                                fill="#D0021B"
-                                            >
-                                                <path
-                                                    fillRule="evenodd"
-                                                    d="M175 175C184.4 165.7 199.6 165.7 208.1 175L255.1 222.1L303 175C312.4 165.7 327.6 165.7 336.1 175C346.3 184.4 346.3 199.6 336.1 208.1L289.9 255.1L336.1 303C346.3 312.4 346.3 327.6 336.1 336.1C327.6 346.3 312.4 346.3 303 336.1L255.1 289.9L208.1 336.1C199.6 346.3 184.4 346.3 175 336.1C165.7 327.6 165.7 312.4 175 303L222.1 255.1L175 208.1C165.7 199.6 165.7 184.4 175 175V175zM512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256zM256 48C141.1 48 48 141.1 48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48z"
-                                                />
-                                            </svg>
-                                        </div>
-                                        Ubah Menjadi Nonaktif
-                                    </div>
-                                </div>
-                                <div
-                                    // onClick={() => [setShowModalUsersActive(true), setShowModalUsersInactive(false), setShowModalUsersDelete(false)]}
-                                    key="setActive"
-                                    class="text-gray-700 block px-2 py-2 text-sm hover:bg-gray-200 hover:rounded-t-default cursor-pointer	"
-                                    role="menuitem"
-                                    tabindex="-1"
-                                    id="menu-item-0"
-                                >
-                                    <div className="flex space-x-[2px] items-center justify-start font-bold text-blue bg-lightblue">
-                                        <div className="relative inline-flex items-center px-2 py-2 rounded-[5px]">
-                                            <PlusCircleIcon className="w-5 h-5 text-blue"/>
-                                        </div>
-                                        Tambah Model
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                )}
-            </div>
+              <button
+                  onClick
+                  type="button"
+                  class="inline-flex w-[170px] ml-[20px] h-[35px] mb-0.5 items-center justify-center gap-x-1 rounded-[8px] bg-blue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#5DAFEF]"
+                  id="menu-button"
+                  aria-expanded="true"
+                  aria-haspopup="true"
+              >
+                  <div className="relative inline-flex items-center px-2 py-2 rounded-[5px]">
+                      <PlusCircleIcon className="w-5 h-5 text-bgprimary"/>
+                  </div>
+                  Tambah Model
+              </button>
+          </div>
         </div>
     </div>
       <div className="mt-5 w-full flex flex-col">

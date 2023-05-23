@@ -60,7 +60,7 @@ const ReqTextInput = ({
                 value={value}
                 onChange={onChange}
                 id={id}
-                required
+                required='true'
                 >{children}
             </input>  
         </div> 

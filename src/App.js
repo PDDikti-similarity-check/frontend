@@ -19,6 +19,11 @@ import {
     EditProfile,
     EditPassword,
     LupaPassword,
+    FormEmailForgetPass,
+    FormNewPass,
+    DetailCekData,
+    HasilCekData,
+
 } from "./pages";
 
 function App() {
@@ -28,16 +33,24 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/forget-password/:token" element={
-            <LupaPassword />
-        }
-        />
+        {/* <Route path="/forget-password/:token" element={
+                <LupaPassword />
+            }
+        /> */}
         <Route path="/register" element={
                 <Register />
                 } 
             />
         <Route path="/login" element={
                 <Login />
+                } 
+            />
+        <Route path="/login/lupa-katasandi" element={
+                <FormEmailForgetPass />
+                } 
+            />
+        <Route path="/login/lupa-katasandi/buat-baru" element={
+                <FormNewPass />
                 } 
             />
         <Route path="/" element={
@@ -70,6 +83,22 @@ function App() {
                     <KirimApi />
                 </Navbar>
             </PrivateRoute>
+            } 
+        />
+        <Route path="/cekdata/hasil-pengecekan" element={
+            // <PrivateRoute>
+                <Navbar>
+                    <HasilCekData />
+                </Navbar>
+            // </PrivateRoute>
+            } 
+        />
+        <Route path="/cekdata/hasil-pengecekan/detail" element={
+            // <PrivateRoute>
+                <Navbar>
+                    <DetailCekData />
+                </Navbar>
+            // </PrivateRoute>
             } 
         />
         <Route path="/manajemen/pengguna" element={
