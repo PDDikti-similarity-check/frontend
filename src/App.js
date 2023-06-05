@@ -33,10 +33,6 @@ function App() {
   return (
     <div>
       <Routes>
-        {/* <Route path="/forget-password/:token" element={
-                <LupaPassword />
-            }
-        /> */}
         <Route path="/register" element={
                 <Register />
                 } 
@@ -49,7 +45,7 @@ function App() {
                 <FormEmailForgetPass />
                 } 
             />
-        <Route path="/login/lupa-katasandi/buat-baru" element={
+        <Route path="/login/lupa-katasandi/buat-baru/:token" element={
                 <FormNewPass />
                 } 
             />
