@@ -2,24 +2,13 @@ import React from "react";
 import { FileInput, Button } from "../../component";
 import { useState } from "react";
 import * as XLSX from "xlsx";
+// import SimilarityFile from "../../../public"
 
 const UnggahFile = () => {
     const [excelFile, setExcelFile] = useState(null);
     const [excelFileError, setExcelFileError] = useState(null);
     const [excelData, setExcelData] = useState(null);
-    const downloadTemplate = () => {
-        fetch("Similarity Check - PDDikti.xlsx").then((response) => {
-            response.blob().then((blob) => {
-                // Creating new object of PDF file
-                const fileURL = window.URL.createObjectURL(blob);
-                // Setting various property values
-                let alink = document.createElement("a");
-                alink.href = fileURL;
-                alink.download = "Similarity Check - PDDikti.xlsx";
-                alink.click();
-            });
-        });
-    };
+    
 
     const handleFile = (e) => {
         let selectedFile = e.target.files[0];
@@ -61,7 +50,7 @@ const UnggahFile = () => {
             const worksheet = workbook.Sheets[worksheetName];
             // console.log(worksheet); // pentingnya disini
             const data = XLSX.utils.sheet_to_json(worksheet);
-            // console.log(data); 
+            // console.log(data);
             setExcelData(data);
         } else {
             setExcelData(null);
@@ -79,19 +68,20 @@ const UnggahFile = () => {
                     <p className="text-[20px]">
                         Unggah datamu dalam bentuk csv/xls
                     </p>
-                    <FileInput
-                    onChange={handleFile}
-                    ></FileInput>
+                    <FileInput onChange={handleFile}></FileInput>
                 </div>
             </div>
             <div className="flex flex-col justify-center items-center gap-y-4 mt-4">
-                <p
+                <a
                     class="font-[500]  text-blue text-[20px] mt-[20px] underline cursor-pointer"
-                    onClick={downloadTemplate}
+                    href="/Similarity Check - PDDikti.xlsx"
+                    download
                 >
                     Sesuaikan datamu dengan template ini!
-                </p>
-                <Button className="bg-[#5DAFEF]" onClick={handleSubmit}>Cek</Button>
+                </a>
+                <Button className="bg-[#5DAFEF]" onClick={handleSubmit}>
+                    Cek
+                </Button>
             </div>
         </div>
     );

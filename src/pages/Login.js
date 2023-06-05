@@ -20,7 +20,6 @@ const Login = () => {
             username: username,
             password: password,
         };
-        console.log(userData);
         // const response = await axios.post(
         //     BASE_URL + "api/login",
         //     userData
@@ -29,7 +28,6 @@ const Login = () => {
         // navigate("/");
         try {
             const response = await axios.post(BASE_URL + "api/login", userData);
-            console.log(response.data);
             const user = response.data
             localStorage.setItem("userRole", user.role);
             localStorage.setItem("token", "ada");
@@ -37,7 +35,6 @@ const Login = () => {
             localStorage.setItem("username", user.username);
             navigate('/');
         } catch (error) {
-            console.log(error.response.status);
             if (error.response.status == 401) {
                 setError("Invalid Username or Password!");
             }

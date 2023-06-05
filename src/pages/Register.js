@@ -35,9 +35,7 @@ const Register = () => {
             pic_phone_number: telepon,
             pic_name: namapengguna,
         };
-        console.log(userData)
         const response = await axios.post(BASE_URL + "api/register", userData)
-        console.log(response)
     };
 
     return (
@@ -123,7 +121,7 @@ const Register = () => {
                                     <input
                                         type={passType}
                                         placeholder="Password"
-                                        required={true}
+                                        // required={true}
                                         value={password}
                                         onChange={(event) =>
                                             setPassword(event.target.value)
