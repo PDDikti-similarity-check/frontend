@@ -2,13 +2,13 @@ import React from "react";
 import { FileInput, Button } from "../../component";
 import { useState } from "react";
 import * as XLSX from "xlsx";
+import axios from "axios";
 // import SimilarityFile from "../../../public"
 
 const UnggahFile = () => {
     const [excelFile, setExcelFile] = useState(null);
     const [excelFileError, setExcelFileError] = useState(null);
     const [excelData, setExcelData] = useState(null);
-    
 
     const handleFile = (e) => {
         let selectedFile = e.target.files[0];
@@ -16,6 +16,7 @@ const UnggahFile = () => {
             let reader = new FileReader();
             reader.readAsArrayBuffer(selectedFile);
             reader.onload = (e) => {
+                // console.log(e.target.result)
                 setExcelFileError(null);
                 setExcelFile(e.target.result);
             };
@@ -24,39 +25,44 @@ const UnggahFile = () => {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (excelFile !== null) {
             const workbook = XLSX.read(excelFile, { type: "buffer" });
-            // console.log(workbook.Sheets.Sheet1["A1"])
-            // console.log(workbook.Sheets.Sheet1["A1"]);
-            // workbook.Sheets.Sheet1["A" + "1"].w = workbook.Sheets.Sheet1[
-            //     "A" + "1"
-            // ].w.replaceAll(" ", "_");
-            // workbook.Sheets.Sheet1["B" + "1"].w = workbook.Sheets.Sheet1[
-            //     "B" + "1"
-            // ].w.replaceAll(" ", "_");
-            // workbook.Sheets.Sheet1["C" + "1"].w = workbook.Sheets.Sheet1[
-            //     "C" + "1"
-            // ].w.replaceAll(" ", "_");
-            // workbook.Sheets.Sheet1["D" + "1"].w = workbook.Sheets.Sheet1[
-            //     "D" + "1"
-            // ].w.replaceAll(" ", "_");
-            // workbook.Sheets.Sheet1["E" + "1"].w = workbook.Sheets.Sheet1[
-            //     "E" + "1"
-            // ].w.replaceAll(" ", "_");
 
             const worksheetName = workbook.SheetNames[0]; // Sheet
             const worksheet = workbook.Sheets[worksheetName];
-            // console.log(worksheet); // pentingnya disini
+            console.log(worksheet); // pentingnya disini
+            //
+            worksheet["A1"].w = worksheet["A1"].w
+                .replaceAll(" ", "_")
+                .toLowerCase();
+            worksheet["B1"].w = worksheet["B1"].w
+                .replaceAll(" ", "_")
+                .toLowerCase();
+            worksheet["C1"].w = worksheet["C1"].w
+                .replaceAll(" ", "_")
+                .toLowerCase();
+
             const data = XLSX.utils.sheet_to_json(worksheet);
+            // data.map((item, index))
+
+            for (let index = 0; index < data.length; index++) {
+                data[index].tanggal_lahir = worksheet["B" + (index + 2).toString()].w;
+            }
             // console.log(data);
-            setExcelData(data);
+            await axios
+                .post("/api/feature/cek-kesesuaian", data)
+                .then((response) => {
+                
+                    console.log(response.data);
+                });
+
+            // setExcelData(data);
         } else {
             setExcelData(null);
         }
     };
-    console.log(excelData);
 
     return (
         <div>
@@ -66,7 +72,7 @@ const UnggahFile = () => {
             <div className="mr-[200px] ml-[200px] mt-[40px] flex justify-center">
                 <div class="border-2 rounded-[15px] drop-shadow-md bg-lightblue h-[300px] w-[750px] flex flex-col items-center justify-center">
                     <p className="text-[20px]">
-                        Unggah datamu dalam bentuk csv/xls
+                        Unggah datamu dalam bentuk .xls
                     </p>
                     <FileInput onChange={handleFile}></FileInput>
                 </div>

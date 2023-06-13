@@ -15,8 +15,6 @@ const EditPassword = () => {
         "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})"
     );
     let navigate = useNavigate();
-
-    // const BASE_URL = "http://localhost:9091/";
     const changePassword = async (e) => {
         e.preventDefault();
         if (
@@ -34,7 +32,7 @@ const EditPassword = () => {
                 try {
                     await axios
                         .post(
-                            "http://localhost:9091/api/user/check-update-user-password/" +
+                            "/api/user/check-update-user-password/" +
                                 userId,
                             userPassword
                         )

@@ -60,10 +60,9 @@ import axios from "axios";
 
 function ManajemenPengguna() {
     const [listUser, setListUser] = useState([]);
-    const BASE_URL = "http://localhost:9091/";
 
     useEffect(() => {
-        axios.get(BASE_URL + "api/user/list-user").then((response) => {
+        axios.get("/api/user/list-user").then((response) => {
             console.log(response.data);
             setListUser(response.data);
             console.log(listUser);

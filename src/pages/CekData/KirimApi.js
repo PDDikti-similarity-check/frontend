@@ -4,11 +4,10 @@ import axios from "axios";
 
 const KirimApi = () => {
     const [user, setUser] = useState("");
-    const BASE_URL = "http://localhost:9091/";
 
     useEffect(() => {
         let userId = localStorage.getItem("userId");
-        axios.get(BASE_URL + "api/user/" + userId).then((response) => {
+        axios.get("/api/user/" + userId).then((response) => {
             setUser(response.data);
         });
     }, []);
@@ -16,7 +15,7 @@ const KirimApi = () => {
 
     const generateNewApiKey = async () => {
         axios
-            .get(BASE_URL + "api/user/generate-api/" + user.id)
+            .get("/api/user/generate-api/" + user.id)
             .then((response) => {
                 console.log(response);
                 window.location.reload(false);
@@ -35,7 +34,7 @@ const KirimApi = () => {
                     <DisTextInput
                         value={user.api_key}
                         label=""
-                        className="w-[600px] bg-[#FAFAFA]"
+                        className="w-[700px] bg-[#FAFAFA]"
                     ></DisTextInput>
                     <Button
                         className="bg-[#5DAFEF] w-[200px]"
@@ -43,18 +42,18 @@ const KirimApi = () => {
                     >
                         Generate Key
                     </Button>
-                    <div class="border-2 rounded-[15px] mt-[40px] pl-[40px] drop-shadow-md bg-lightblue h-[250px] w-[750px] flex flex-col items-start justify-center">
+                    <div class="border-2 rounded-[15px] mt-[40px] pl-[40px] drop-shadow-md bg-lightblue h-[250px] w-[750px] flex flex-col items-start justify-center gap-y-5">
                         <p className="text-[20px] mb-[10px] font-[700]">
                             Tutorial Pengiriman API
                         </p>
                         <p className="text-[16px]">
-                            1. Lorem ipsum dolor sit amet
+                            1. Gunakan API di atas dengan method POST pada sistem anda
                         </p>
                         <p className="text-[16px]">
-                            2. Lorem ipsum dolor sit amet
+                            2. Buat Key dengan nama "API-KEY" pada header
                         </p>
                         <p className="text-[16px]">
-                            3. Lorem ipsum dolor sit amet
+                            3. Gunakan token di atas sebagai value untuk Key "API-KEY"
                         </p>
                     </div>
                 </div>

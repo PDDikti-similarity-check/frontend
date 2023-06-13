@@ -105,10 +105,10 @@ export function AvatarCell({ value, column, row }) {
 export function ActionButtons({ value }) {
   const [showDeleteModal, setShowModalDelete] = useState(false);
 
-    // const BASE_URL = "http://localhost:9091/";
+
     const deletePengguna = async (e) => {
         e.preventDefault();
-        await axios.delete("http://localhost:9091/api/user/delete-user/" + value).then((response) => {
+        await axios.delete("/api/user/delete-user/" + value).then((response) => {
             window.location.reload(false);
             console.log(response);
         });

@@ -20,13 +20,12 @@ const FormNewPass = () => {
     let navigate = useNavigate();
 
     const params = useParams();
-    const BASE_URL = "http://localhost:9091/";
     const [ispermitted, setPerimitted] = useState(false);
     const [user, setUser] = useState([]);
 
     useEffect(() => {
         axios
-            .get(BASE_URL + "validate-token-page/" + params.token)
+            .get("/validate-token-page/" + params.token)
             .then((response) => {
                 console.log(response.data);
                 if (response.data.id != 0) {
@@ -55,7 +54,7 @@ const FormNewPass = () => {
                 };
 
                 await axios
-                    .post(BASE_URL + "update-password", userData)
+                    .post("/update-password", userData)
                     .then((response) => {
                         navigate("/");
                     });
