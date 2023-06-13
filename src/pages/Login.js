@@ -12,7 +12,6 @@ const Login = () => {
     const [error, setError] = useState();
     let navigate = useNavigate();
 
-    const BASE_URL = "http://localhost:9091/";
 
     const postLogin = async (e) => {
         e.preventDefault(); 
@@ -20,14 +19,8 @@ const Login = () => {
             username: username,
             password: password,
         };
-        // const response = await axios.post(
-        //     BASE_URL + "api/login",
-        //     userData
-        // );
-        // console.log(response.data);
-        // navigate("/");
         try {
-            const response = await axios.post(BASE_URL + "api/login", userData);
+            const response = await axios.post("/api/login", userData);
             const user = response.data
             localStorage.setItem("userRole", user.role);
             localStorage.setItem("token", "ada");

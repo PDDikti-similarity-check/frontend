@@ -11,19 +11,17 @@ const Register = () => {
     const [namaorganisasi, setNamaOrganisasi] = useState("");
     const [telepon, setTelepon] = useState("");
     const [namapengguna, setNamaPengguna] = useState("");
-    const [passType, setPassType] = useState('password');
+    const [passType, setPassType] = useState("password");
     const [seePassword, setSeePassword] = useState(false);
-    const BASE_URL = "http://localhost:9091/";
 
-    function handlePassType(){
+    function handlePassType() {
         setSeePassword(!seePassword);
-        if (seePassword == false){
-            setPassType('text');
+        if (seePassword == false) {
+            setPassType("text");
+        } else if (seePassword == true) {
+            setPassType("password");
         }
-        else if (seePassword == true){
-            setPassType('password');
-        }
-    };
+    }
 
     const postRegister = async (e) => {
         const userData = {
@@ -35,7 +33,14 @@ const Register = () => {
             pic_phone_number: telepon,
             pic_name: namapengguna,
         };
-        const response = await axios.post(BASE_URL + "api/register", userData)
+        await axios
+            .post("/api/register", userData)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     };
 
     return (
@@ -56,8 +61,6 @@ const Register = () => {
                                     onChange={(event) =>
                                         setNamaOrganisasi(event.target.value)
                                     }
-                                    
-                                    
                                 />
                             </div>
                             <div>
@@ -110,7 +113,7 @@ const Register = () => {
                             </div>
                             <div>
                                 <label className="font-raleway text-[14px]">
-                                    <div className='flex items-center'>
+                                    <div className="flex items-center">
                                         Password
                                         <p className="font-bold text-[#D0021B]">
                                             *

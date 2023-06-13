@@ -60,13 +60,13 @@ function NavbarUser({ children }) {
                                     : "hidden transition-all duration-300 max-h-0 space-y-4"
                             }
                         >
-                            <li className=" list-none pt-4 pb-2 pr-8 pl-4 hover:bg-lightblue hover:text-blue">
+                            <li className=" list-none pt-4 pb-2 pr-8 pl-4 hover:bg-lightblue hover:text-blue cursor-pointer">
                                 <a href="/profile">
                                     <span className="">View Profile</span>
                                 </a>
                             </li>
                             <li
-                                className="list-none pt-2 pb-4 pr-8 pl-4 hover:bg-lightblue hover:text-blue"
+                                className="list-none pt-2 pb-4 pr-8 pl-4 hover:bg-lightblue hover:text-blue cursor-pointer"
                                 onClick={handleLogout}
                             >
                                 <a>

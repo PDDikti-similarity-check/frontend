@@ -12,7 +12,7 @@ const FormEmailForgetPass = () => {
     const [errorStr, setErrorStr] = useState("hahaha");
     let navigate = useNavigate();
 
-    const BASE_URL = "http://localhost:9091/";
+
 
     const forgotPassword = async (e) => {
         e.preventDefault();
@@ -20,7 +20,7 @@ const FormEmailForgetPass = () => {
             email: email,
         };
         await axios
-            .post(BASE_URL + "forget-password", userData)
+            .post("/forget-password", userData)
             .then((response) => {
                 console.log(response)
                 navigate("/");

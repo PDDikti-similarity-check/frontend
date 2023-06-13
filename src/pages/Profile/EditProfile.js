@@ -13,11 +13,10 @@ const EditProfile = () => {
     const [namapengguna, setNamaPengguna] = useState("");
     let navigate = useNavigate();
 
-    const BASE_URL = "http://localhost:9091/";
 
     useEffect(() => {
         let userId = localStorage.getItem("userId");
-        axios.get(BASE_URL + "api/user/" + userId).then((response) => {
+        axios.get("/api/user/" + userId).then((response) => {
             console.log(response.data);
             setUsername(response.data.username);
             setEmail(response.data.email);
@@ -42,7 +41,7 @@ const EditProfile = () => {
         console.log(userData)
         e.preventDefault();
         await axios
-            .put("http://localhost:9091/api/user/update-profile/" + userId , userData)
+            .put("/api/user/update-profile/" + userId , userData)
             .then((response) => {
                 window.location.reload(false);
                 console.log(response);

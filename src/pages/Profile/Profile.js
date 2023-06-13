@@ -10,12 +10,12 @@ const Profile = () => {
     const [namaorganisasi, setNamaOrganisasi] = useState("");
     const [telepon, setTelepon] = useState("");
     const [namapengguna, setNamaPengguna] = useState("");
-    const BASE_URL = "http://localhost:9091/";
+   
     let navigate = useNavigate();
 
     useEffect(() => {
         let userId = localStorage.getItem("userId");
-        axios.get(BASE_URL + "api/user/" + userId).then((response) => {
+        axios.get("/api/user/" + userId).then((response) => {
             console.log(response.data);
             setUsername(response.data.username);
             setEmail(response.data.email);
