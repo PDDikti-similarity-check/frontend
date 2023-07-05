@@ -38,8 +38,8 @@ const Profile = () => {
         <div className="mt-[30px] flex justify-center">
             <div className="border-2 rounded-[15px] drop-shadow-md bg-white h-[380px] w-[850px]">
                 <div className="flex justify-end mt-[30px] mr-[40px]">
-                    <button className="bg-[#5DAFEF] w-[100px] inline-flex justify-center rounded-[8px] py-2 hover:brightness-90 shadow shadow-sd text-[14px] font-bold text-white" onClick={handleEdit}>
-                        Edit
+                    <button className="bg-[#5DAFEF] w-[100px] inline-flex justify-center rounded-[8px] py-2 hover:brightness-90 shadow shadow-sd text-[14px] text-white" onClick={handleEdit}>
+                        Ubah Profil
                     </button>
                 </div>
                 <div className="flex mt-[20px] px-20 justify-between font-raleway text-[12px] text-primaryblack">
@@ -47,7 +47,7 @@ const Profile = () => {
                         <DisTextInput
                             label="Nama Organisasi"
                             value={namaorganisasi}
-                            className="w-[400px]"
+                            className="w-80"
                             
                         />
                     </div>
@@ -55,7 +55,7 @@ const Profile = () => {
                         <DisTextInput
                             label="Nama Pengguna"
                             value={namapengguna}
-                            className="w-[400px]"
+                            className="w-80"
                         />
                     </div>
                 </div>
@@ -64,14 +64,14 @@ const Profile = () => {
                         <DisTextInput
                             label="Email"
                             value={email}
-                            className="w-[400px]"
+                            className="w-80"
                         />
                     </div>
                     <div div className="w-80">
                         <DisTextInput
                             label="Nomor Telepon"
                             value={telepon}
-                            className="w-[400px]"
+                            className="w-80"
                         />
                     </div>
                 </div>
@@ -80,7 +80,7 @@ const Profile = () => {
                         <DisTextInput
                             label="Username"
                             value={username}
-                            className="w-[400px]"
+                            className="w-80"
                         />
                     </div>
                     <div div className="w-80">
@@ -88,7 +88,7 @@ const Profile = () => {
                             label="Password"
                             type="password"
                             value={password.slice(0,8)}
-                            className="w-[400px]"
+                            className="w-80"
                         />
                     </div>
                 </div>

@@ -26,21 +26,21 @@ const KirimApi = () => {
             <p className="font-[700] flex justify-center text-[20px] mt-[20px]">
                 Cek Kesesuaian Datamu dengan Data Kami
             </p>
-            <div className="mr-[200px] ml-[200px] mt-[20px] flex justify-center">
-                <div class="flex flex-col items-center justify-center">
+            <div className=" mt-[20px] flex w-full justify-center">
+                <div class="flex w-full flex-col items-center justify-center">
                     <p className="font-[400] mb-4">
                         http://localhost:9091/api/cek-kesesuaian
                     </p>
                     <DisTextInput
                         value={user.api_key}
                         label=""
-                        className="w-[700px] bg-[#FAFAFA]"
+                        className="w-[500px] bg-[#FAFAFA]"
                     ></DisTextInput>
                     <Button
                         className="bg-[#5DAFEF] w-[200px]"
                         onClick={generateNewApiKey}
                     >
-                        Generate Key
+                        Buat Kunci
                     </Button>
                     <div class="border-2 rounded-[15px] mt-[40px] pl-[40px] drop-shadow-md bg-lightblue h-[250px] w-[750px] flex flex-col items-start justify-center gap-y-5">
                         <p className="text-[20px] mb-[10px] font-[700]">

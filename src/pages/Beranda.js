@@ -26,7 +26,7 @@ const Beranda = () => {
                 </span>
               </div>
             </a>
-            <a href="/cekdata/isiform">
+            <a href="/cekdata/isiformulir">
               <div className='border-2 rounded-[15px] drop-shadow-md bg-[#FBFCFF] h-[270px] w-[300px] flex flex-col items-center pt-5 hover:border-b-blue hover:border-4 hover:text-blue'>
                 <img src={isiform} className="w-[160px]" />
                 <span className='font-raleway px-6 pt-3'>
@@ -39,7 +39,7 @@ const Beranda = () => {
                 </span>
               </div>
             </a>
-            <a href="/cekdata/kirimapi">
+            <a href="/cekdata/requestapi">
               <div className='border-2 rounded-[15px] drop-shadow-md bg-[#FBFCFF] h-[270px] w-[300px] flex flex-col items-center pt-5 hover:border-b-blue hover:border-4 hover:text-blue'>
                 <img src={kirimapi} className="w-[105px]" />
                 <span className='font-raleway px-6 pt-3'>

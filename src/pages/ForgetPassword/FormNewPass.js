@@ -127,7 +127,6 @@ const FormNewPass = () => {
                                 {errorConfPassBaru ? (
                                     <div>
                                         <p className="text-sm text-danger w-[500px]">
-                                            {" "}
                                             Password tidak sesuai dengan yang
                                             baru
                                         </p>

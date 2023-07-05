@@ -21,7 +21,7 @@ const TextInput = ({
                 type={type}
                 variant={variant}
                 placeholder={placeholder}
-                className={`${className} ${variant} rounded-[15px] font-raleway text-[12px] border-gray-300 appearance-none w-full mb-3 py-3.5 px-3 leading-tight focus:outline-none focus:shadow-outline`} 
+                className={` rounded-[15px] font-raleway text-[12px] border-gray-300 appearance-none mb-3 py-3.5 px-3 leading-tight focus:outline-none focus:shadow-outline ${className} ${variant}`} 
                 value={value}
                 onChange={onChange}
                 id={id}
@@ -83,7 +83,7 @@ const DisTextInput = ({
             <input 
                 type={type}
                 variant={variant}
-                className={`${className} ${variant} bg-[#D9D9D9] rounded-[15px] font-raleway text-[14px] border-black-500 appearance-none w-full mb-3 py-3.5 px-3 leading-tight focus:outline-none focus:shadow-outline`} 
+                className={` ${variant} bg-[#D9D9D9] rounded-[15px] font-raleway text-[14px] border-black-500 appearance-none mb-3 py-3.5 px-3 leading-tight focus:outline-none focus:shadow-outline ${className}`} 
                 value={value}
                 id={id}
                 disabled

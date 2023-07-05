@@ -70,7 +70,7 @@ const UnggahFile = () => {
                 Cek Kesesuaian Datamu dengan Data Kami
             </p>
             <div className="mr-[200px] ml-[200px] mt-[40px] flex justify-center">
-                <div class="border-2 rounded-[15px] drop-shadow-md bg-lightblue h-[300px] w-[750px] flex flex-col items-center justify-center">
+                <div class="border-2 rounded-[15px] drop-shadow-md bg-lightblue h-[250px] w-[750px] flex flex-col items-center justify-center">
                     <p className="text-[20px]">
                         Unggah datamu dalam bentuk .xls
                     </p>
@@ -85,7 +85,9 @@ const UnggahFile = () => {
                 >
                     Sesuaikan datamu dengan template ini!
                 </a>
-                <Button className="bg-[#5DAFEF]" onClick={handleSubmit}>
+                <Button 
+                    className="inline-flex w-[100px] ml-[20px] h-[35px] mb-0.5 items-center justify-center gap-x-3 rounded-[8px] bg-cfblue-400 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#5DAFEF]"
+                    onClick={handleSubmit}>
                     Cek
                 </Button>
             </div>

@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTable, useFilters, useGlobalFilter, useAsyncDebounce, useSortBy, usePagination, useRowSelect } from 'react-table';
 import { ChevronDoubleLeftIcon, ChevronLeftIcon, ChevronRightIcon, ChevronDoubleRightIcon, CheckIcon, XIcon, SearchIcon } from '@heroicons/react/solid';
 import { Button, PageButton } from '../shared/Button';
 import { useRowSelectColumn } from "@lineup-lite/hooks";
 import { classNames } from '../shared/Utils';
 import { SortIcon, SortUpIcon, SortDownIcon } from '../shared/Icons';
-import { ConfirmModal, WarningModal } from '../../component';
 import axios from "axios";
-import { BsTrash } from "react-icons/bs";
+import { BsTrash,BsPerson } from "react-icons/bs";
+import { ConfirmModalAktifkan, DangerModalHapus, DangerModalNonaktifkan, SuccessModalConfirmAktifkan, SuccessModalDangerHapus, SuccessModalDangerNonaktifkan } from '../../component/Modal';
+import { Loader } from '../../component/Loader';
 
 
 function GlobalFilter({
@@ -22,20 +23,20 @@ function GlobalFilter({
   }, 200)
 
   return (
-    <form>   
+    <form className='px-4 sm:px-6 lg:px-10'>   
         <div class="relative z-1">
             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="black" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <svg aria-hidden="true" class="w-5 h-5 text-gray-500" fill="none" stroke="black" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </div>
             <input type="text" 
-                class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-[15px] focus:ring-blue focus:border-blue" 
+                class="block w-full p-2 pl-10 text-sm text-mineshaft-300 border border-mineshaft-200 rounded-[15px] focus:border-none focus:ring-none" 
                 value={value || ""}
                 onChange={e => {
                 setValue(e.target.value);
                 onChange(e.target.value);
                 }}
                 placeholder={
-                    `Search...`}/>
+                    `Cari...`}/>
         </div>
     </form>
 
@@ -77,74 +78,97 @@ export function SelectColumnFilter({
   )
 }
 
-export function StatusPill({ value }) {
 
-    return (
-        <span className='flex justify-center'>
-            {value == true ? 
-            <CheckIcon className="h-5 w-5 text-blue" aria-hidden="true" /> : 
-            <XIcon className="h-5 w-5 text-danger " aria-hidden="true" />}
-        </span>
-    );
-};
-
-export function AvatarCell({ value, column, row }) {
+export function AvatarCell({ value }) {
   return (
     <div className="flex items-center">
-      <div className="flex-shrink-0 h-10 w-10">
-        <img className="h-10 w-10 rounded-full" src={row.original[column.imgAccessor]} alt="" />
+      <div className="flex items-center justify-center h-10 w-10 bg-[#D9D9D9] rounded-full">
+        <BsPerson className=""></BsPerson>
       </div>
       <div className="ml-4">
-        <div className="text-sm font-medium text-gray-900">{value}</div>
-        <div className="text-sm text-gray-500">{row.original[column.emailAccessor]}</div>
+        <div className="text-sm font-medium text-[#26282B]">{value}</div>
       </div>
     </div>
   )
 }
 
 export function ActionButtons({ value }) {
-  const [showDeleteModal, setShowModalDelete] = useState(false);
+    const [showDeleteModal, setShowModalDelete] = useState(false);
+    const [showSuksesDeleteModal, setShowSuksesModalDelete] = useState(false);
 
+    const [showLoading, setShowLoading] = useState(false);
+
+    const [id, setId] = useState("");
+    const [name, setName] = useState("");
+    useEffect(() => {
+        setId(value[0]);
+        setName(value[1]);
+    }, []);
 
     const deletePengguna = async (e) => {
         e.preventDefault();
-        await axios.delete("/api/user/delete-user/" + value).then((response) => {
-            window.location.reload(false);
-            console.log(response);
+        setShowModalDelete(false);
+        setShowLoading(true);
+        await axios.delete("/api/user/delete-user/" + id).then((response) => {
+            setShowLoading(false);
+            setShowSuksesModalDelete(true);
         });
     };
 
     return (
         <>
+            {showLoading ? <Loader /> : null}
+    
             <div className="flex space-x-[2px] items-center justify-center">                
                 <div className="relative inline-flex items-center px-2 py-2 rounded-[5px] cursor-pointer">
                   <div className="relative inline-flex items-center px-2 py-2 rounded-[5px]">
                       <BsTrash className='text-danger text-[16px] outline outline-offset-4 outline-1 rounded-[2px] outline-states-danger' onClick={() => setShowModalDelete(true)}></BsTrash>
                   </div>
-                    
                 </div>
-                
             </div>
+
             {showDeleteModal ? (
-                    <WarningModal
-                        label="Warning"
-                        description="Apakah Anda yakin untuk menghapus pengguna?"
-                        rightbutton="Hapus"
+                    <DangerModalHapus
+                        tittle="Hapus Akun"
+                        description1='Apakah Anda yakin untuk menghapus akun "'
+                        object={name}
+                        description2='" ?'
+                        rightbutton="Yakin"
                         leftbutton="Batal"
                         onClickRight={deletePengguna}
                         onClickLeft={() => setShowModalDelete(false)}
                     />
                 ) : null}
+
+            {showSuksesDeleteModal? (
+                <SuccessModalDangerHapus
+                    description1='Akun "'
+                    object={name}
+                    description2='" telah dihapus'
+                    rightbutton="Selesai"
+                    onClick={() => window.location.reload(false)}
+                />
+            ) : null}
         </>
     );
 }
 
 function Table({ columns, data }) {
   const [showOptions, setShowOptions] = useState(false);
+
   const [showModalIzinUnggah, setShowModalIzinUnggah] = useState(false);
+  const [showModalSuksesIzinUnggah, setShowModalSuksesIzinUnggah] = useState(false);
+
   const [showModalLarangUnggah, setShowModalLarangUnggah] = useState(false);
+  const [showModalSuksesLarangUnggah, setShowModalSuksesLarangUnggah] = useState(false);
+
   const [showModalIzinApi, setShowModalIzinApi] = useState(false);
+  const [showModalSuksesIzinApi, setShowModalSuksesIzinApi] = useState(false);
+
   const [showModalLarangApi, setShowModalLarangApi] = useState(false);
+  const [showModalSuksesLarangApi, setShowModalSuksesLarangApi] = useState(false);
+
+  const [showLoading, setShowLoading] = useState(false);
 
   const {
     getTableProps,
@@ -182,62 +206,66 @@ function Table({ columns, data }) {
         console.log(list)
         let listSelectedUser = [];
         for (let i = 0; i < list.length; i++) {
-            // console.log(parseInt(list[i][0]))
-            // console.log(data[parseInt(list[i][0])]);
             listSelectedUser.push({ id: data[parseInt(list[i][0])].id });
-            // for (let j = 0; j < page.length; j++) {
-            //     if (list[i][0] === page[j].id) {
-            //         listSelectedUser.push({ id: page[j].original.Id });
-            //     }
-            // }
         }
         return listSelectedUser;
     }
 
     const izinUnggah = async (e) => {
         e.preventDefault();
+        setShowModalIzinUnggah(false);
+        setShowLoading(true);
         await axios
             .put(
                 "http://localhost:9091/api/user/activate-account",
                 selectedUsers()
             )
             .then((response) => {
-                window.location.reload(false);
-                console.log(response);
+                // window.location.reload(false);
+                setShowLoading(false);
+                setShowModalSuksesIzinUnggah(true);
             });
     };
 
-
     const larangUnggah = async (e) => {
         e.preventDefault();
+        setShowModalLarangUnggah(false);
+        setShowLoading(true);
         await axios
             .put(
                 "http://localhost:9091/api/user/deactivate-account",
                 selectedUsers()
             )
             .then((response) => {
-                window.location.reload(false);
-                console.log(response);
+                // window.location.reload(false);
+                setShowLoading(false);
+                setShowModalSuksesLarangUnggah(true);
             });
     };
 
     const izinkanAPI = async (e) => {
         e.preventDefault();
+        setShowModalIzinApi(false);
+        setShowLoading(true);
         await axios
             .put("http://localhost:9091/api/user/activate-api", selectedUsers())
             .then((response) => {
-                window.location.reload(false);
-                console.log(response);
+                // window.location.reload(false);
+                setShowLoading(false);
+                setShowModalSuksesIzinApi(true);
             });
     };
 
     const larangAPI = async (e) => {
         e.preventDefault();
+        setShowModalLarangApi(false);
+        setShowLoading(true);
         await axios
             .put("http://localhost:9091/api/user/deactivate-api", selectedUsers())
             .then((response) => {
-                window.location.reload(false);
-                console.log(response);
+                // window.location.reload(false);
+                setShowLoading(false);
+                setShowModalSuksesLarangApi(true);
             });
     };
 
@@ -261,50 +289,78 @@ function Table({ columns, data }) {
 
   return (
       <>
-          {showModalIzinUnggah ? (
-              <ConfirmModal
-                  label="Konfirmasi"
-                  description="Apakah Anda yakin untuk mengizinkan organisasi unggah fail?"
-                  detail={confTotalSelectedUser}
-                  rightbutton="Ya, simpan"
-                  leftbutton="Kembali"
-                  onClickRight={izinUnggah}
-                  onClickLeft={() => setShowModalIzinUnggah(false)}
-              />
-          ) : null}
-          {showModalLarangUnggah ? (
-              <WarningModal
-                  label="Konfirmasi"
-                  description="Apakah Anda yakin untuk melarang organisasi unggah fail?"
-                  detail={confTotalSelectedUser}
-                  rightbutton="Ya, simpan"
-                  leftbutton="Kembali"
-                  onClickRight={larangUnggah}
-                  onClickLeft={() => setShowModalLarangUnggah(false)}
-              />
-          ) : null}
-          {showModalIzinApi ? (
-              <ConfirmModal
-                  label="Konfirmasi"
-                  description="Apakah Anda yakin untuk mengizinkan organisasi kirim API?"
-                  detail={confTotalSelectedUser}
-                  rightbutton="Ya, simpan"
-                  leftbutton="Kembali"
-                  onClickRight={izinkanAPI}
-                  onClickLeft={() => setShowModalIzinApi(false)}
-              />
-          ) : null}
-          {showModalLarangApi ? (
-              <WarningModal
-                  label="Konfirmasi"
-                  description="Apakah Anda yakin untuk melarang organisasi kirim API"
-                  detail={confTotalSelectedUser}
-                  rightbutton="Ya, simpan"
-                  leftbutton="Kembali"
-                  onClickRight={larangAPI}
-                  onClickLeft={() => setShowModalLarangApi(false)}
-              />
-          ) : null}
+            {showLoading ? <Loader /> : null}
+            {showModalIzinUnggah ? (
+                <ConfirmModalAktifkan
+                    tittle="Konfirmasi"
+                    description1="Apakah Anda yakin untuk mengizinkan organisasi unggah fail?"
+                    rightbutton="Yakin"
+                    leftbutton="Batal"
+                    onClickRight={izinUnggah}
+                    onClickLeft={() => setShowModalIzinUnggah(false)}
+                />
+            ) : null}
+            {showModalSuksesIzinUnggah? (
+                <SuccessModalConfirmAktifkan
+                    description1="Berhasil mengizinkan organisasi unggah fail"
+                    rightbutton="Selesai"
+                    onClick={() => window.location.reload(false)}
+                />
+            ) : null}
+
+            {showModalLarangUnggah ? (
+                <DangerModalNonaktifkan
+                    tittle="Konfirmasi"
+                    description1="Apakah Anda yakin untuk melarang organisasi unggah fail?"
+                    rightbutton="Yakin"
+                    leftbutton="Batal"
+                    onClickRight={larangUnggah}
+                    onClickLeft={() => setShowModalLarangUnggah(false)}
+                />
+            ) : null}
+            {showModalSuksesLarangUnggah? (
+                <SuccessModalDangerNonaktifkan
+                    description1="Berhasil melarang organisasi unggah fail"
+                    rightbutton="Selesai"
+                    onClick={() => window.location.reload(false)}
+                />
+            ) : null}
+
+            {showModalIzinApi ? (
+                <ConfirmModalAktifkan
+                    tittle="Konfirmasi"
+                    description1="Apakah Anda yakin untuk mengizinkan organisasi kirim API?"
+                    rightbutton="Yakin"
+                    leftbutton="Batal"
+                    onClickRight={izinkanAPI}
+                    onClickLeft={() => setShowModalIzinApi(false)}
+                />
+            ) : null}
+            {showModalSuksesIzinApi? (
+                <SuccessModalConfirmAktifkan
+                    description1="Berhasil mengizinkan organisasi kirim API"
+                    rightbutton="Selesai"
+                    onClick={() => window.location.reload(false)}
+                />
+            ) : null}
+
+            {showModalLarangApi ? (
+                <DangerModalNonaktifkan
+                    tittle="Konfirmasi"
+                    description1="Apakah Anda yakin untuk melarang organisasi kirim API?"
+                    rightbutton="Yakin"
+                    leftbutton="Batal"
+                    onClickRight={larangAPI}
+                    onClickLeft={() => setShowModalLarangApi(false)}
+                />
+            ) : null}
+            {showModalSuksesLarangApi? (
+                <SuccessModalDangerNonaktifkan
+                    description1="Berhasil melarang organisasi kirim API"
+                    rightbutton="Selesai"
+                    onClick={() => window.location.reload(false)}
+                />
+            ) : null}
           <div className="flex items-center justify-between">
               <div className="flex gap-x-2">
                   <GlobalFilter
@@ -326,16 +382,16 @@ function Table({ columns, data }) {
               <div class="flex justify-center items-start">
                   <div class="relative inline-block text-left pr-[20px] text-grey">
                       <div>
-                          {confTotalSelectedUser}
+                          {/* {confTotalSelectedUser} */}
                           <button
                               onClick={clickHandler}
                               type="button"
-                              class="inline-flex w-[120px] ml-[20px] h-[35px] mb-0.5 items-center justify-center gap-x-3 rounded-[8px] bg-blue px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#5DAFEF]"
+                              class="inline-flex w-[100px] ml-[20px] h-[35px] mb-0.5 items-center justify-center gap-x-3 rounded-[8px] bg-cfblue-400 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#5DAFEF]"
                               id="menu-button"
                               aria-expanded="true"
                               aria-haspopup="true"
                           >
-                              Action
+                              Aksi
                               <svg
                                   class="-mr-1 h-5 w-5 text-gray-400"
                                   viewBox="0 0 20 20"
@@ -493,14 +549,14 @@ function Table({ columns, data }) {
               </div>
           </div>
           <div className="mt-5 w-full flex flex-col">
-              <div className="-my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
-                  <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                      <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              <div className="">
+                  <div className="py-2 align-middle inline-block min-w-full">
+                      <div className="overflow-hidden ">
                           <table
                               {...getTableProps()}
-                              className="min-w-full divide-y divide-gray-200"
+                              className="min-w-full divide-y divide-black"
                           >
-                              <thead className="bg-lightblue">
+                              <thead className="">
                                   {headerGroups.map((headerGroup) => (
                                       <tr
                                           {...headerGroup.getHeaderGroupProps()}
@@ -510,7 +566,7 @@ function Table({ columns, data }) {
                                               // we can add them into the header props
                                               <th
                                                   scope="col"
-                                                  className="group px-6 py-3 text-left text-[14px] font-bold text-[#26282B] tracking-wider"
+                                                  className="group px-6 py-3 text-center text-[14px] font-bold text-[#26282B]"
                                                   {...column.getHeaderProps(
                                                       column.getSortByToggleProps()
                                                   )}
@@ -537,7 +593,7 @@ function Table({ columns, data }) {
                               </thead>
                               <tbody
                                   {...getTableBodyProps()}
-                                  className="bg-white divide-y divide-gray-200"
+                                  className="bg-white"
                               >
                                   {page.map((row, i) => {
                                       // new
@@ -554,7 +610,7 @@ function Table({ columns, data }) {
                                                           {cell.column.Cell
                                                               .name ===
                                                           "defaultRenderer" ? (
-                                                              <div className="text-sm text-gray-500">
+                                                              <div className="text-sm text-[#26282B]">
                                                                   {cell.render(
                                                                       "Cell"
                                                                   )}

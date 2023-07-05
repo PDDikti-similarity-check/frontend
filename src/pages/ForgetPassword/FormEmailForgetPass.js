@@ -5,29 +5,74 @@ import { TextInput } from "../../component";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { BsEnvelope } from "react-icons/bs";
+import { Loader } from "../../component/Loader";
+import { SuccessModalNewPass } from "../../component/Modal";
+import { BsFillExclamationCircleFill } from "react-icons/bs";
+
 
 const FormEmailForgetPass = () => {
     const [email, setEmail] = useState("");
-    const [error, setError] = useState(false);
-    const [errorStr, setErrorStr] = useState("hahaha");
+    const [errorEmail, setErrorEmail] = useState(false);
+    const [error , setError] = useState(false);
+    const [listUser, setListUser] = useState([]);
+    
+    useEffect(() => {
+        axios.get("/api/user/list-user").then((response) => {
+            setListUser(response.data);
+        });
+    }, []);
+
     let navigate = useNavigate();
-
-
+    const [modalSuksesSimpan, setModalSuksesSimpan] = useState(false);
+    const [showLoading, setShowLoading] = useState(false);
 
     const forgotPassword = async (e) => {
         e.preventDefault();
-        const userData = {
-            email: email,
-        };
-        await axios
-            .post("/forget-password", userData)
-            .then((response) => {
-                console.log(response)
-                navigate("/");
+        let emailAda = false;
+
+        if (email.length === 0) {
+            setErrorEmail(true);
+        } else {
+            setErrorEmail(false);
+            listUser.forEach(user => {
+                if(user.email == email){
+                    emailAda = true
+                }
             });
+            if (emailAda == true){
+                setError(false);
+            }{
+                setError(true)
+            }
+        }
+        
+        if(
+            emailAda == true && 
+            email.length !==0){
+            setShowLoading(true);
+
+            const userData = {
+                email: email,
+            };
+            await axios
+                .post("/forget-password", userData)
+                .then((response) => {
+                    setShowLoading(false);
+                    setModalSuksesSimpan(true);
+                });
+        }
     };
 
     return (
+        <>
+        {showLoading ? <Loader /> : null}
+        {modalSuksesSimpan? (
+            <SuccessModalNewPass
+                description1="Tautan telah dikirim melalui email yang Anda masukkan"
+                rightbutton="Selesai"
+                onClick={() => navigate('/login')}
+            />
+        ) : null}
         <div className="flex h-screen w-screen ">
             <img src={backgroundimg} className="h-full w-full" />
             <div className="absolute backdrop-blur-md bg-grey/70 h-full w-full"></div>
@@ -57,25 +102,35 @@ const FormEmailForgetPass = () => {
                                 />
                                 <BsEnvelope className="text-[20px] ml-5 mr-5 text-gray-500" />
                             </div>
+                            {errorEmail
+                                ? [
+                                    <div className="flex flex-row items-center space-x-2">
+                                        <BsFillExclamationCircleFill className="text-danger-main"></BsFillExclamationCircleFill>
+                                        <label className="text-danger-main">
+                                            Field Email harus diisi
+                                        </label>
+                                    </div>
+                                    ]
+                                : null}
                         </div>
                         {error ? (
                             <div className="flex item-center justify-center mt-5">
                                 <p className="text-sm text-danger">
-                                    {errorStr}
+                                    Email tidak terdaftar
                                 </p>
                             </div>
                         ) : null}
                         <div className="flex flex-col justify-center items-center mt-[40px]">
                             <button
                                 type={"submit"}
-                                className="bg-[#5DAFEF] w-[300px] inline-flex justify-center rounded-[8px] py-2 hover:brightness-90 drop-shadow-md text-[14px] font-bold text-white"
+                                className="bg-[#5DAFEF] w-[300px] inline-flex justify-center rounded-[8px] py-2 hover:brightness-90 drop-shadow-md text-m font-bold text-white"
                                 onClick={forgotPassword}
                             >
                                 Minta tautan
                             </button>
                             <div className="flex flex-row justify-center items-center my-[20px]">
                                 <a
-                                    className="ml-2 text-blue cursor-pointer"
+                                    className="ml-2 text-blue cursor-pointer text-sm"
                                     onClick={() => navigate("/login")}
                                 >
                                     Masuk
@@ -86,6 +141,7 @@ const FormEmailForgetPass = () => {
                 </div>
             </form>
         </div>
+        </>
     );
 };
 

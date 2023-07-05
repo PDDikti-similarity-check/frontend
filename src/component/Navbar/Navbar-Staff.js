@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { BsChevronRight } from "react-icons/bs";
 import { CgProfile } from 'react-icons/cg';
 import { useState } from "react";
+import { DangerModalNonaktifkan } from '../Modal';
+
 
 function NavbarUser({ children }) {
     let navigate = useNavigate();
@@ -11,12 +13,17 @@ function NavbarUser({ children }) {
     const [navbarProfile, setNavbarProfile] = useState(false);
     const username = localStorage.getItem('username')
 
+    const [showModalLogout, setShowModalLogout] = useState(false);
+
 
     const handleNavCekData = () => {
         setNavbarCekdata(!navbarCekdata);
+        setNavbarProfile(false);
     };
     const handleNavProfile = () => {
         setNavbarProfile(!navbarProfile);
+        setNavbarCekdata(false);
+
     };
 
     const handleLogout = () => {
@@ -26,6 +33,17 @@ function NavbarUser({ children }) {
     };
 
     return (
+        <>
+        {showModalLogout ? (
+            <DangerModalNonaktifkan
+                tittle="Keluar"
+                description1="Anda yakin ingin keluar dari akun?"
+                rightbutton="Yakin"
+                leftbutton="Batal"
+                onClickRight={handleLogout}
+                onClickLeft={() => setShowModalLogout(false)}
+            />
+        ) : null}
         <div className="flex">
             <nav className="fixed z-10 top-0 left-0 w-full h-[120px] bg-gradient-to-r from-[#E7EAEF] to-[#B5CBFC]">
                 <div className="flex flex-row items-center justify-between">
@@ -56,22 +74,17 @@ function NavbarUser({ children }) {
                         <div
                             className={
                                 navbarProfile
-                                    ? "overflow-hidden absolute z-40 bg-[#FFFFFF] drop-shadow-md transition-all duration-700 max-h-40 mt-2 rounded-[10px]  text-black font-[500] text-sm font-raleway"
+                                    ? "overflow-hidden absolute z-40 bg-[#FFFFFF] drop-shadow-md transition-all duration-700 max-h-40 mt-2 rounded-[10px]  text-black text-sm font-raleway"
                                     : "hidden transition-all duration-300 max-h-0 space-y-4"
-                            }
-                        >
-                            <li className=" list-none pt-4 pb-2 pr-8 pl-4 hover:bg-lightblue hover:text-blue cursor-pointer">
-                                <a href="/profile">
-                                    <span className="">View Profile</span>
-                                </a>
+                            }>
+                            <li className=" list-none pt-4 pb-2 pr-8 pl-4 hover:bg-lightblue hover:text-blue cursor-pointer" onClick={() => navigate('/profile')}>
+                                <span className="">Lihat Profile</span>
                             </li>
                             <li
                                 className="list-none pt-2 pb-4 pr-8 pl-4 hover:bg-lightblue hover:text-blue cursor-pointer"
-                                onClick={handleLogout}
+                                onClick={() => setShowModalLogout(true)}
                             >
-                                <a>
-                                    <span className="">Logout</span>
-                                </a>
+                                <span className="">Log Out</span>
                             </li>
                         </div>
                     </div>
@@ -88,18 +101,17 @@ function NavbarUser({ children }) {
                         </li>
                         <li>
                             <a
-                                className="flex items-center mr-[40px] uppercase cursor-pointer"
+                                className="flex items-center mr-[40px] uppercase cursor-pointer hover:text-blue"
                                 onClick={handleNavCekData}
                             >
                                 <span className="mr-[5px]">Cek Data</span>
                                 <span>
                                     <BsChevronRight
                                         size={12}
-                                        color="black"
                                         className={
                                             navbarCekdata
-                                                ? "transition-transform duration-300 rotate-90"
-                                                : "transition-transform duration-300 rotate-0"
+                                                ? "transition-transform duration-100 rotate-90"
+                                                : "transition-transform duration-100 rotate-0"
                                         }
                                     />
                                 </span>
@@ -107,24 +119,18 @@ function NavbarUser({ children }) {
                             <div
                                 className={
                                     navbarCekdata
-                                        ? "overflow-hidden bg-[#FFFFFF] drop-shadow-md transition-all duration-700 max-h-40 mt-2 rounded-[10px] "
+                                        ? "overflow-hidden bg-[#FFFFFF] drop-shadow-md transition-all duration-700 max-h-40 mt-2 rounded-[10px] text-black text-sm font-raleway font-[400]"
                                         : "hidden transition-all duration-300 max-h-0 space-y-4"
                                 }
                             >
-                                <li className="pt-4 pb-2 pr-2 pl-4 hover:bg-lightblue hover:text-blue">
-                                    <a href="/cekdata/unggahfile">
-                                        <span className="">Unggah File</span>
-                                    </a>
+                                <li className="pt-4 pb-2 pr-2 pl-4 hover:bg-lightblue hover:text-blue cursor-pointer" onClick={() => navigate('/cekdata/unggahfile')}>
+                                    <span className="">Unggah File</span>
                                 </li>
-                                <li className="pt-2 pb-2 pr-2 pl-4 hover:bg-lightblue hover:text-blue">
-                                    <a href="/cekdata/isiform">
-                                        <span className="">Isi Formulir</span>
-                                    </a>
+                                <li className="pt-2 pb-2 pr-2 pl-4 hover:bg-lightblue hover:text-blue cursor-pointer" onClick={() => navigate('/cekdata/isiformulir')}>
+                                    <span className="">Isi Formulir</span>
                                 </li>
-                                <li className="pt-2 pb-4 pr-2 pl-4 hover:bg-lightblue hover:text-blue">
-                                    <a href="/cekdata/kirimapi">
-                                        <span className="">Kirim API</span>
-                                    </a>
+                                <li className="pt-2 pb-4 pr-2 pl-4 hover:bg-lightblue hover:text-blue cursor-pointer" onClick={() => navigate('/cekdata/requestapi')}>
+                                    <span className="">Request API</span>
                                 </li>
                             </div>
                         </li>
@@ -136,6 +142,7 @@ function NavbarUser({ children }) {
                 {children}
             </main>
         </div>
+        </>
     );
 }
 

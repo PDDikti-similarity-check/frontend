@@ -19,7 +19,23 @@ module.exports = {
         'buttonblue' : '#5DAFEF',
         'states-danger': '#F0E3E4',
         'danger': '#D0021B',
-      }
+        'cfblue-400' : '#5DAFEF',
+        'mineshaft-200' : '#C8C8C8',
+        'mineshaft-300' : '#A4A4A4',
+        'warning' : '#E7B53B',
+        'sukses' : '#3EAF76',
+        "neutral-10": "#FFFFFF",
+        "primary-main" : '#1B87DC',
+        'danger-main': '#D0021B',
+
+
+      },
+
+      borderRadius: {
+          sm: "12px",
+          md: "16px",
+          lg: "25px",
+      },
     },
   },
   plugins: [

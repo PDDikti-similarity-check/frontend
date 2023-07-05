@@ -65,7 +65,7 @@ function App() {
             </PrivateRoute>
             } 
         />
-        <Route path="/cekdata/isiform" element={
+        <Route path="/cekdata/isiformulir" element={
             <PrivateRoute>
                 <Navbar>
                     <IsiForm />
@@ -73,7 +73,7 @@ function App() {
             </PrivateRoute>
             } 
         />
-        <Route path="/cekdata/kirimapi" element={
+        <Route path="/cekdata/requestapi" element={
             <PrivateRoute>
                 <Navbar>
                     <KirimApi />
