@@ -1,145 +1,675 @@
-import  React , {useState } from 'react';
+import React, { useState } from "react";
 import "../App.css";
+import {
+    BsFillTrashFill,
+    BsPersonFillAdd,
+    BsFillKeyFill,
+    BsFillExclamationTriangleFill,
+    BsFillCloudFill,
+    BsCheck,
+    BsXLg
+} from "react-icons/bs";
+import { IoPaperPlane } from "react-icons/io5";
+import { Button, OutlineButton } from "./Button";
 
-const ConfirmModal = ({label, description, detail, leftbutton, rightbutton, onClickRight, onClickLeft}) => {
-
-  return (
-    <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity"></div>
-        <div class="fixed inset-0 z-10 overflow-y-auto motion-safe:animate-fade-in" >
-            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                <div class="relative transform overflow-hidden rounded-[10px] bg-lightblue text-left shadow-xl transition-all sm:my-8 sm:w-[380px] sm:max-w-[436px]">
-                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                        <div class="sm:flex sm:items-start">
-                            <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-lightblue sm:mx-0 sm:h-10 sm:w-10">
-                                <svg class="h-6 w-6 text-blue" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin-="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                                </svg>
+const DangerModalHapus = ({
+    description1,
+    description2,
+    tittle,
+    object,
+    leftbutton,
+    rightbutton,
+    onClickRight,
+    onClickLeft,
+}) => {
+    return (
+        <div
+            class="absolute z-30"
+            aria-labelledby="modal-title"
+            role="dialog"
+            aria-modal="true"
+        >
+            <div class="fixed inset-0 bg-neutral-90 bg-opacity-20 transition-opacity"></div>
+            <div class="fixed inset-0 z-10 overflow-y-auto motion-safe:animate-fade-in drop-shadow-2xl">
+                <div class="flex min-h-full justify-center text-center items-center">
+                    <div class="relative transform overflow-hidden rounded-[12px] bg-neutral-10 text-center transition-all w-full max-w-[397px]">
+                        <div class="flex w-full justify-center items-center flex-col px-8 py-4 space-y-2">
+                            <div class="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-danger-main">
+                                <BsFillTrashFill className="text-l text-neutral-10"></BsFillTrashFill>
                             </div>
-                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{label}</h3>
-                                <div class="mt-2 whitespace-normal">
-                                    <p class="text-sm text-gray-500">{description}</p>
+                            <div className="p-[10px] space-y-2">
+                                <p class="text-m font-semibold">{tittle}</p>
+                                <div class="w-[348px] px-[10px] text-center text-sm">
+                                    <p  class="whitespace-normal break-words">
+                                        {description1} {object} {description2}
+                                    </p>
                                 </div>
-                                <div class="mt-2">
-                                    <p class="text-sm text-blue text-[12px] font-bold">{detail}</p>
+                            </div>
+                            <div className="flex space-x-4">
+                                <div className="">
+                                    <OutlineButton
+                                        variant="button-danger"
+                                        onClick={onClickLeft}
+                                    >
+                                        {leftbutton}
+                                    </OutlineButton>
+                                </div>
+                                <div className="">
+                                    <Button
+                                        variant="button-danger"
+                                        onClick={onClickRight}
+                                    >
+                                        {rightbutton}
+                                    </Button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="px-4 py-3 sm:flex sm:flex-row-reverse sm:justify-center items-center sm:px-6">
-                        <button type="button" class="inline-flex w-full justify-center rounded-[8px] bg-buttonblue py-2 text-xs font-bold text-white shadow-sm hover:brightness-90 sm:ml-3 sm:w-[110px]" onClick={onClickRight}>{rightbutton}</button>
-                        <a class="flex mt-2 justify-center item-center text-buttonblue text-xs font-bold cursor-pointer underline hover:brightness-90 sm:mt-0" onClick={onClickLeft}>{leftbutton}</a>
-                    </div>
                 </div>
             </div>
         </div>
-    </div> 
     );
 };
 
-const WarningModal = ({label, description, detail, leftbutton, rightbutton, onClickRight, onClickLeft}) => {
-
+const SuccessModalDangerHapus = ({
+    description1,
+    description2,
+    object,
+    rightbutton,
+    onClick,
+}) => {
     return (
-      <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-          <div class="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity"></div>
-          <div class="fixed inset-0 z-10 overflow-y-auto motion-safe:animate-fade-in" >
-              <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                  <div class="relative transform overflow-hidden rounded-[10px] bg-lightblue text-left shadow-xl transition-all sm:my-8 sm:w-[380px] sm:max-w-[436px]">
-                      <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                          <div class="sm:flex sm:items-start">
-                              <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                                <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin-="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                                </svg>
-                              </div>
-                              <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                  <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{label}</h3>
-                                  <div class="mt-2 whitespace-normal">
-                                      <p class="text-sm text-gray-500">{description}</p>
-                                  </div>
-                                  <div class="mt-2">
-                                      <p class="text-sm text-blue text-[12px] font-bold">{detail}</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="px-4 py-3 sm:flex sm:flex-row-reverse sm:justify-center items-center sm:px-6">
-                          <button type="button" class="inline-flex w-full justify-center rounded-[8px] bg-danger py-2 text-xs font-bold text-white shadow-sm hover:brightness-90 sm:ml-3 sm:w-[110px]" onClick={onClickRight}>{rightbutton}</button>
-                          <a class="flex mt-2 justify-center item-center text-buttonblue text-xs font-bold cursor-pointer underline hover:brightness-90 sm:mt-0" onClick={onClickLeft}>{leftbutton}</a>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div> 
-      );
-  };
-
-const SuccessModal = ({label, description, rightbutton, onClickRight}) => {
-
-    return (
-      <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-        <div class="fixed inset-0 z-10 overflow-y-auto motion-safe:animate-fade-in" >
-            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                <div class="relative border-[1px] border-[#0AB663] transform overflow-hidden rounded-[25px] bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-[436px]">
-                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <div class="sm:flex sm:items-start">
-                        <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-states-success bg-opacity-75 sm:mx-0 sm:h-10 sm:w-10">
-                            <svg class="h-6 w-6 text-states-success" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin-="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                            </svg>
-                        </div>
-                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                            <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{label}</h3>
-                            <div class="mt-2">
-                                <p class="text-sm text-gray-500">{description}</p>
+        <div
+            class="absolute z-30"
+            aria-labelledby="modal-title"
+            role="dialog"
+            aria-modal="true"
+        >
+            <div class="fixed inset-0 bg-neutral-90 bg-opacity-20 transition-opacity"></div>
+            <div class="fixed inset-0 z-10 overflow-y-auto motion-safe:animate-fade-in drop-shadow-2xl">
+                <div class="flex min-h-full justify-center text-center items-center">
+                    <div class="relative transform overflow-hidden rounded-[12px] bg-neutral-10 text-center transition-all w-full max-w-[397px]">
+                        <div class="flex w-full justify-center items-center flex-col px-8 py-4 space-y-4">
+                            <div class="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-danger-main">
+                                <BsFillTrashFill className="text-l text-neutral-10"></BsFillTrashFill>
+                            </div>
+                            <div class="w-[348px] px-[10px] text-center text-sm">
+                                    <p  class="whitespace-normal break-words">
+                                        {description1} {object} {description2}
+                                    </p>
+                            </div>
+                            <div className="">
+                                <Button
+                                    onClick={onClick}
+                                    variant="button-danger"
+                                >
+                                    {rightbutton}
+                                </Button>
                             </div>
                         </div>
                     </div>
-                    </div>
-                    <div class="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                        <button type="button" class="inline-flex w-full bg-[#0AB663] justify-center rounded-[25px] bg-primary px-3 py-2 text-xs font-bold text-white shadow-sm hover:brightness-90 sm:ml-3 sm:w-[129px]" onClick={onClickRight}>{rightbutton}</button>
-                    </div>
                 </div>
             </div>
         </div>
-      </div> 
-      );
+    );
 };
 
-const ErrorModal = ({label, description, rightbutton, onClickRight}) => {
-
+const WarningModalEditProfile = ({
+    description1,
+    description2,
+    tittle,
+    object,
+    leftbutton,
+    rightbutton,
+    onClickRight,
+    onClickLeft,
+}) => {
     return (
-      <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity"></div>
-        <div class="fixed inset-0 z-10 overflow-y-auto motion-safe:animate-fade-in">
-            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                <div class="relative border-[1px] border-danger transform overflow-hidden rounded-[25px] bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-[436px]">
-                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <div class="sm:flex sm:items-start">
-                        <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                        <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin-="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                        </svg>
+        <div
+            class="absolute z-30"
+            aria-labelledby="modal-title"
+            role="dialog"
+            aria-modal="true"
+        >
+            <div class="fixed inset-0 bg-neutral-90 bg-opacity-20 transition-opacity"></div>
+            <div class="fixed inset-0 z-10 overflow-y-auto motion-safe:animate-fade-in drop-shadow-2xl">
+                <div class="flex min-h-full justify-center text-center items-center">
+                    <div class="relative transform overflow-hidden rounded-[12px] bg-neutral-10 text-center transition-all ">
+                        <div class="flex w-full justify-center items-center flex-col px-8 py-4 space-y-2">
+                            <div class="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-warning">
+                                <BsPersonFillAdd className="text-l text-neutral-10"></BsPersonFillAdd>
+                            </div>
+                            <div className="p-[10px] space-y-2">
+                                <p class="text-m font-semibold">{tittle}</p>
+                                <div class="w-[348px] px-[10px] text-center text-sm">
+                                    <p  class="whitespace-normal break-words">
+                                        {description1} {object} {description2}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="flex space-x-4 justify-center">
+                                <div className="">
+                                    <OutlineButton
+                                        variant="button-warning"
+                                        onClick={onClickLeft}
+                                    >
+                                        {leftbutton}
+                                    </OutlineButton>
+                                </div>
+                                <div className="">
+                                    <Button
+                                        variant="button-warning"
+                                        onClick={onClickRight}
+                                    >
+                                        {rightbutton}
+                                    </Button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                        <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{label}</h3>
-                        
-                        <div class="mt-2">
-                            <p class="text-sm text-gray-500">{description}</p>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                    <button type="button" class="inline-flex w-full justify-center rounded-[25px] bg-danger px-3 py-2 text-xs font-bold text-white shadow-sm hover:brightness-90 sm:ml-3 sm:w-[129px]" onClick={onClickRight}>{rightbutton}</button>
                     </div>
                 </div>
             </div>
         </div>
-      </div> 
-      );
+    );
 };
-  
-export {WarningModal, ConfirmModal, SuccessModal, ErrorModal};
+
+const SuccessModalWarningEditProfile = ({
+    description1,
+    description2,
+    object,
+    rightbutton,
+    onClick,
+}) => {
+    return (
+        <div
+            class="absolute z-30"
+            aria-labelledby="modal-title"
+            role="dialog"
+            aria-modal="true"
+        >
+            <div class="fixed inset-0 bg-neutral-90 bg-opacity-20 transition-opacity"></div>
+            <div class="fixed inset-0 z-10 overflow-y-auto motion-safe:animate-fade-in drop-shadow-2xl">
+                <div class="flex min-h-full justify-center text-center items-center">
+                    <div class="relative transform overflow-hidden rounded-[12px] bg-neutral-10 text-center transition-all ">
+                        <div class="flex w-ful justify-center items-center flex-col px-8 py-4 space-y-4">
+                            <div class="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-warning">
+                                <BsPersonFillAdd className="text-l text-neutral-10"></BsPersonFillAdd>
+                            </div>
+                            <div class="w-[348px] px-[10px] text-center text-sm">
+                                    <p  class="whitespace-normal break-words">
+                                        {description1} {object} {description2}
+                                    </p>
+                                </div>
+                            <div className="">
+                                <Button
+                                    onClick={onClick}
+                                    variant="button-warning"
+                                >
+                                    {rightbutton}
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const InfoModalRegister= ({
+    description1,
+    description2,
+    tittle,
+    object,
+    leftbutton,
+    rightbutton,
+    onClickRight,
+    onClickLeft,
+}) => {
+    return (
+        <div
+            class="absolute z-30"
+            aria-labelledby="modal-title"
+            role="dialog"
+            aria-modal="true"
+        >
+            <div class="fixed inset-0 bg-neutral-90 bg-opacity-20 transition-opacity"></div>
+            <div class="fixed inset-0 z-10 overflow-y-auto motion-safe:animate-fade-in drop-shadow-2xl">
+                <div class="flex min-h-full justify-center text-center items-center">
+                    <div class="relative transform overflow-hidden rounded-[12px] bg-neutral-10 text-center transition-all ">
+                        <div class="flex w-full justify-center items-center flex-col px-8 py-4 space-y-2">
+                            <div class="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-blue">
+                                <BsPersonFillAdd className="text-l text-neutral-10"></BsPersonFillAdd>
+                            </div>
+                            <div className="p-[10px] space-y-2">
+                                <p class="text-m font-semibold">{tittle}</p>
+                                <div class="w-[348px] px-[10px] text-center text-sm">
+                                    <p  class="whitespace-normal break-words">
+                                        {description1} {object} {description2}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="flex space-x-4 justify-center">
+                                <div className="">
+                                    <OutlineButton
+                                        onClick={onClickLeft}
+                                    >
+                                        {leftbutton}
+                                    </OutlineButton>
+                                </div>
+                                <div className="">
+                                    <Button
+                                        onClick={onClickRight}
+                                    >
+                                        {rightbutton}
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const SuccessModalRegister = ({
+    description1,
+    description2,
+    object,
+    rightbutton,
+    onClick,
+}) => {
+    return (
+        <div
+            class="absolute z-30"
+            aria-labelledby="modal-title"
+            role="dialog"
+            aria-modal="true"
+        >
+            <div class="fixed inset-0 bg-neutral-90 bg-opacity-20 transition-opacity"></div>
+            <div class="fixed inset-0 z-10 overflow-y-auto motion-safe:animate-fade-in drop-shadow-2xl">
+                <div class="flex min-h-full justify-center text-center items-center">
+                    <div class="relative transform overflow-hidden rounded-[12px] bg-neutral-10 text-center transition-all ">
+                        <div class="flex w-ful justify-center items-center flex-col px-8 py-4 space-y-4">
+                            <div class="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-blue">
+                                <BsPersonFillAdd className="text-l text-neutral-10"></BsPersonFillAdd>
+                            </div>
+                            <div class="w-[348px] px-[10px] text-center text-sm">
+                                    <p  class="whitespace-normal break-words">
+                                        {description1} {object} {description2}
+                                    </p>
+                                </div>
+                            <div className="">
+                                <Button
+                                    onClick={onClick}
+                                >
+                                    {rightbutton}
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const WarningModalEditPass = ({
+    description1,
+    description2,
+    tittle,
+    object,
+    leftbutton,
+    rightbutton,
+    onClickRight,
+    onClickLeft,
+}) => {
+    return (
+        <div
+            class="absolute z-30"
+            aria-labelledby="modal-title"
+            role="dialog"
+            aria-modal="true"
+        >
+            <div class="fixed inset-0 bg-neutral-90 bg-opacity-20 transition-opacity"></div>
+            <div class="fixed inset-0 z-10 overflow-y-auto motion-safe:animate-fade-in drop-shadow-2xl">
+                <div class="flex min-h-full justify-center text-center items-center">
+                    <div class="relative transform overflow-hidden rounded-[12px] bg-neutral-10 text-center transition-all w-full max-w-[394px]">
+                        <div class="flex w-full justify-center items-center flex-col px-8 py-4 space-y-2">
+                            <div class="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-warning">
+                                <BsFillKeyFill className="text-l text-neutral-10"></BsFillKeyFill>
+                            </div>
+                            <div className="p-[10px] space-y-2">
+                                <p class="text-m font-semibold">{tittle}</p>
+                                <div class="w-[348px] px-[10px] text-center text-sm">
+                                    <p  class="whitespace-normal break-words">
+                                        {description1} {object} {description2}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="flex space-x-4">
+                                <div className="">
+                                    <OutlineButton
+                                        variant="button-warning"
+                                        onClick={onClickLeft}
+                                    >
+                                        {leftbutton}
+                                    </OutlineButton>
+                                </div>
+                                <div className="">
+                                    <Button
+                                        variant="button-warning"
+                                        onClick={onClickRight}
+                                    >
+                                        {rightbutton}
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const SuccessModalWarningEditPass = ({
+    description1,
+    description2,
+    object,
+    rightbutton,
+    onClick,
+}) => {
+    return (
+        <div
+            class="absolute z-30"
+            aria-labelledby="modal-title"
+            role="dialog"
+            aria-modal="true"
+        >
+            <div class="fixed inset-0 bg-neutral-90 bg-opacity-20 transition-opacity"></div>
+            <div class="fixed inset-0 z-10 overflow-y-auto motion-safe:animate-fade-in drop-shadow-2xl">
+                <div class="flex min-h-full justify-center text-center items-center">
+                    <div class="relative transform overflow-hidden rounded-[12px] bg-neutral-10 text-center transition-all w-full max-w-[397px]">
+                        <div class="flex w-full justify-center items-center flex-col px-8 py-4 space-y-4">
+                            <div class="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-warning">
+                                <BsFillKeyFill className="text-l text-neutral-10"></BsFillKeyFill>
+                            </div>
+                            <div class="w-[348px] px-[10px] text-center text-sm">
+                                <p  class="whitespace-normal break-words">
+                                    {description1} {object} {description2}
+                                </p>
+                            </div>
+                            <div className="">
+                                <Button
+                                    onClick={onClick}
+                                    variant="button-warning"
+                                >
+                                    {rightbutton}
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const DangerModalNonaktifkan = ({
+    description1,
+    description2,
+    tittle,
+    object,
+    leftbutton,
+    rightbutton,
+    onClickRight,
+    onClickLeft,
+}) => {
+    return (
+        <div
+            class="absolute z-30"
+            aria-labelledby="modal-title"
+            role="dialog"
+            aria-modal="true"
+        >
+            <div class="fixed inset-0 bg-neutral-90 bg-opacity-20 transition-opacity"></div>
+            <div class="fixed inset-0 z-10 overflow-y-auto motion-safe:animate-fade-in drop-shadow-2xl">
+                <div class="flex min-h-full justify-center text-center items-center">
+                    <div class="relative transform overflow-hidden rounded-[12px] bg-neutral-10 text-center transition-all w-full max-w-[397px]">
+                        <div class="flex w-full justify-center items-center flex-col px-8 py-4 space-y-2">
+                            <div class="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-danger-main">
+                                <BsFillExclamationTriangleFill className="text-l text-neutral-10"></BsFillExclamationTriangleFill>
+                            </div>
+                            <div className="p-[10px] space-y-2">
+                                <p class="text-m font-semibold">{tittle}</p>
+                                <div class="w-[348px] px-[10px] text-center text-sm">
+                                    <p  class="whitespace-normal break-words">
+                                        {description1} {object} {description2}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="flex space-x-4">
+                                <div className="">
+                                    <OutlineButton
+                                        variant="button-danger"
+                                        onClick={onClickLeft}
+                                    >
+                                        {leftbutton}
+                                    </OutlineButton>
+                                </div>
+                                <div className="">
+                                    <Button
+                                        variant="button-danger"
+                                        onClick={onClickRight}
+                                    >
+                                        {rightbutton}
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const SuccessModalDangerNonaktifkan = ({
+    description1,
+    description2,
+    object,
+    rightbutton,
+    onClick,
+}) => {
+    return (
+        <div
+            class="absolute z-30"
+            aria-labelledby="modal-title"
+            role="dialog"
+            aria-modal="true"
+        >
+            <div class="fixed inset-0 bg-neutral-90 bg-opacity-20 transition-opacity"></div>
+            <div class="fixed inset-0 z-10 overflow-y-auto motion-safe:animate-fade-in  drop-shadow-2xl">
+                <div class="flex min-h-full justify-center text-center items-center">
+                    <div class="relative transform overflow-hidden rounded-[12px] bg-neutral-10 text-center transition-all w-full max-w-[397px]">
+                        <div class="flex w-full justify-center items-center flex-col px-8 py-4 space-y-4">
+                            <div class="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-danger-main">
+                                <BsFillExclamationTriangleFill className="text-l text-neutral-10"></BsFillExclamationTriangleFill>
+                            </div>
+                            <div class="w-[348px] px-[10px] text-center text-sm">
+                                <p  class="whitespace-normal break-words">
+                                    {description1} {object} {description2}
+                                </p>
+                            </div>
+                            <div className="">
+                                <Button
+                                    onClick={onClick}
+                                    variant="button-danger"
+                                >
+                                    {rightbutton}
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const ConfirmModalAktifkan = ({
+    description1,
+    description2,
+    tittle,
+    object,
+    leftbutton,
+    rightbutton,
+    onClickRight,
+    onClickLeft,
+}) => {
+    return (
+        <div
+            class="absolute z-30"
+            aria-labelledby="modal-title"
+            role="dialog"
+            aria-modal="true"
+        >
+            <div class="fixed inset-0 bg-neutral-90 bg-opacity-20 transition-opacity"></div>
+            <div class="fixed inset-0 z-10 overflow-y-auto motion-safe:animate-fade-in">
+                <div class="flex min-h-full justify-center text-center items-center drop-shadow-2xl">
+                    <div class="relative transform overflow-hidden rounded-[12px] bg-neutral-10 text-center transition-all w-full max-w-[397px]">
+                        <div class="flex w-full justify-center items-center flex-col px-8 py-4 space-y-2">
+                            <div class="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-blue">
+                                <BsFillExclamationTriangleFill className="text-l text-neutral-10"></BsFillExclamationTriangleFill>
+                            </div>
+                            <div className="p-[10px] space-y-2">
+                                <p class="text-m font-semibold">{tittle}</p>
+                                <div class="w-[348px] px-[10px] text-center text-sm">
+                                    <p  class="whitespace-normal break-words">
+                                        {description1} {object} {description2}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="flex space-x-4">
+                                <div className="">
+                                    <OutlineButton
+                                        // variant='button-danger'
+                                        onClick={onClickLeft}
+                                    >
+                                        {leftbutton}
+                                    </OutlineButton>
+                                </div>
+                                <div className="">
+                                    <Button
+                                        // variant='button-danger'
+                                        onClick={onClickRight}
+                                    >
+                                        {rightbutton}
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const SuccessModalConfirmAktifkan = ({
+    description1,
+    description2,
+    object,
+    rightbutton,
+    onClick,
+}) => {
+    return (
+        <div
+            class="absolute z-30"
+            aria-labelledby="modal-title"
+            role="dialog"
+            aria-modal="true"
+        >
+            <div class="fixed inset-0 bg-neutral-90 bg-opacity-20 transition-opacity"></div>
+            <div class="fixed inset-0 z-10 overflow-y-auto motion-safe:animate-fade-in  drop-shadow-2xl">
+                <div class="flex min-h-full justify-center text-center items-center">
+                    <div class="relative transform overflow-hidden rounded-[12px] bg-neutral-10 text-center transition-all w-full max-w-[397px]">
+                        <div class="flex w-full justify-center items-center flex-col px-8 py-4 space-y-4">
+                            <div class="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-primary-main">
+                                <BsFillExclamationTriangleFill className="text-l text-neutral-10"></BsFillExclamationTriangleFill>
+                            </div>
+                            <div class="w-[348px] px-[10px] text-center text-sm">
+                                <p  class="whitespace-normal break-words">
+                                    {description1} {object} {description2}
+                                </p>
+                            </div>
+                            <div className="">
+                                <Button
+                                    onClick={onClick}
+                                >
+                                    {rightbutton}
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const SuccessModalNewPass = ({
+    description1,
+    description2,
+    object,
+    rightbutton,
+    onClick,
+}) => {
+    return (
+        <div
+            class="absolute z-30"
+            aria-labelledby="modal-title"
+            role="dialog"
+            aria-modal="true"
+        >
+            <div class="fixed inset-0 bg-neutral-90 bg-opacity-20 transition-opacity"></div>
+            <div class="fixed inset-0 z-10 overflow-y-auto motion-safe:animate-fade-in drop-shadow-2xl">
+                <div class="flex min-h-full justify-center text-center items-center">
+                    <div class="relative transform overflow-hidden rounded-[12px] bg-neutral-10 text-center transition-all w-full max-w-[397px]">
+                        <div class="flex w-full justify-center items-center flex-col px-8 py-4 space-y-4">
+                            <div class="mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-sukses">
+                                <BsCheck className="text-[20px] text-neutral-10"></BsCheck>
+                            </div>
+                            <div class="w-[348px] px-[10px] text-center text-sm">
+                                    <p  class="whitespace-normal break-words">
+                                        {description1} {object} {description2}
+                                    </p>
+                            </div>
+                            <div className="">
+                                <Button onClick={onClick} variant="button-sukses">{rightbutton}</Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export {
+    DangerModalHapus,
+    SuccessModalDangerHapus,
+    WarningModalEditProfile,
+    SuccessModalWarningEditProfile,
+    WarningModalEditPass,
+    SuccessModalWarningEditPass,
+    DangerModalNonaktifkan,
+    SuccessModalDangerNonaktifkan,
+    ConfirmModalAktifkan,
+    SuccessModalConfirmAktifkan,
+    SuccessModalNewPass,
+    InfoModalRegister,
+    SuccessModalRegister
+};
